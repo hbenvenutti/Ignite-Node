@@ -23,7 +23,7 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': 'error',
-    'camelCase': "off",
+    'camelcase': "off",
     'import/no-unresolved': 'error',
     "class-methods-use-this": "off",
     "import/prefer-default-export": "off",
