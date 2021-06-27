@@ -23,7 +23,8 @@ services:
       - .:/usr/app
     links:
       - database
-    depends_on: database
+    depends_on:
+      - database
 
 volumes:
   pgdata:
