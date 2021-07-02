@@ -1,11 +1,17 @@
+import { inject, injectable } from 'tsyringe';
+
 import ISpecificationsRepository from '../../repositories/ISpecificationsRepository';
 
 interface IRequestDTO {
   name: string;
   description: string;
 }
+@injectable()
 class CreateSpecificationService {
-  constructor(private specificationsRepository: ISpecificationsRepository) {}
+  constructor(
+    @inject('SpecificationsRepository')
+    private specificationsRepository: ISpecificationsRepository,
+  ) {}
 
   execute({ name, description }: IRequestDTO): void {
     const specificationAlredyExists =

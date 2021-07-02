@@ -1,7 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
 import ICategoriesRepository from '../../repositories/ICategoriesRepository';
-import CategoriesRepository from '../../repositories/implementations/CategoriesRepository';
 
 interface IRequestDTO {
   name: string;
