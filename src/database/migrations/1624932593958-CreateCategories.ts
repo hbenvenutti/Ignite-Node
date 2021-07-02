@@ -16,6 +16,10 @@ export class CreateCategories1624932593958 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'description',
+            type: 'varchar',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
@@ -26,6 +30,6 @@ export class CreateCategories1624932593958 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable('categories');
+    await queryRunner.dropTable('categories');
   }
 }

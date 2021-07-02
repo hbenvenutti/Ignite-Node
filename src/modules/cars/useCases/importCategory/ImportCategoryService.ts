@@ -44,7 +44,7 @@ export default class ImportCategoryService {
       const categoryAlreadyExists = this.categoriesRepository.findByName(name);
 
       if (!categoryAlreadyExists) {
-        this.categoriesRepository.create({ name, description });
+        await this.categoriesRepository.create({ name, description });
       }
     });
   }
