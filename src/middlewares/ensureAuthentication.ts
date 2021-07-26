@@ -10,11 +10,11 @@ interface IPayload {
   exp: number;
 }
 
-export default function ensureAuthentication(
+export default async function ensureAuthentication(
   req: Request,
   res: Response,
   next: NextFunction,
-): void {
+): Promise<void> {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -28,11 +28,15 @@ export default function ensureAuthentication(
 
     const usersRepository = new UsersRepository();
 
-    const user = usersRepository.findById(user_id);
+    const user = await usersRepository.findById(user_id);
 
     if (!user) {
       throw new AppError('User does not exist', 401);
     }
+
+    req.user = {
+      id: user.id,
+    };
     next();
   } catch {
     throw new AppError('invalid token', 401);
