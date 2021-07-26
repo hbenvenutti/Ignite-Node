@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
+import deleteFile from '../../../../utils/file';
 import User from '../../entities/user';
 import IUsersRepository from '../../repositories/IUsersRepository';
 
@@ -16,6 +17,10 @@ export default class UpdateUserAvatarService {
   ) {}
   async execute({ user_id, avatarFile }: IRequestDTO): Promise<void> {
     const user = (await this.usersRepository.findById(user_id)) as User;
+
+    if (user.avatar) {
+      await deleteFile(`./tmp/avatar/${user.avatar}`);
+    }
 
     user.avatar = avatarFile;
 
