@@ -20,7 +20,7 @@ class CreateCategoryService {
       name,
     );
 
-    if (!categoryAlreadyExists) {
+    if (categoryAlreadyExists) {
       throw new AppError('Category already exists');
     }
 
