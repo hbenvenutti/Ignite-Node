@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import deleteFile from '../../../../utils/file';
-import User from '../../entities/user';
-import IUsersRepository from '../../repositories/IUsersRepository';
+import User from '@modules/accounts/infra/typeorm/entities/user';
+import IUsersRepository from '@modules/accounts/repositories/IUsersRepository';
+import deleteFile from '@utils/file';
 
 interface IRequestDTO {
   user_id: string;
