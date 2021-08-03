@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import AppError from '../../../../errors/AppError';
-import ISpecificationsRepository from '../../repositories/ISpecificationsRepository';
+import ISpecificationsRepository from '@modules/cars/repositories/ISpecificationsRepository';
+import AppError from '@shared/errors/AppError';
 
 interface IRequestDTO {
   name: string;
@@ -15,10 +15,10 @@ class CreateSpecificationService {
   ) {}
 
   execute({ name, description }: IRequestDTO): void {
-    const specificationAlredyExists =
+    const specificationAlreadyExists =
       this.specificationsRepository.findByName(name);
 
-    if (!specificationAlredyExists) {
+    if (!specificationAlreadyExists) {
       throw new AppError(`Specification ${name} already exists`);
     }
 

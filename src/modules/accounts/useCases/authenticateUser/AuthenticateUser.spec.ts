@@ -1,6 +1,6 @@
 import UsersRepositoryInMemory from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
+import AppError from '@shared/errors/AppError';
 
-import AppError from '../../../../errors/AppError';
 import CreateUserService from '../createUser/CreateUserService';
 import AuthenticateUserService from './AuthenticateUserService';
 
