@@ -1,10 +1,9 @@
-import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 
 import ICreateCarDTO from '@modules/cars/dtos/ICreateCarDTO';
+import Car from '@modules/cars/infra/typeorm/entities/Car';
 import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
 import AppError from '@shared/errors/AppError';
-import { ConnectionIsNotSetError } from 'typeorm';
 
 @injectable()
 class CreateCar {
@@ -21,13 +20,14 @@ class CreateCar {
     daily_rate,
     fine_amount,
     license_plate,
-  }: ICreateCarDTO): Promise<void> {
-    const car = await this.carsRepository.findByLicense(license_plate);
+  }: ICreateCarDTO): Promise<Car> {
+    const carExists = await this.carsRepository.findByLicense(license_plate);
 
-    if (car) {
+    if (carExists) {
       throw new AppError('Car already exists', 400);
     }
-    await this.carsRepository.create({
+
+    const car = await this.carsRepository.create({
       name,
       description,
       brand,
@@ -36,6 +36,8 @@ class CreateCar {
       fine_amount,
       license_plate,
     });
+
+    return car;
   }
 }
 
