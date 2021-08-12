@@ -36,7 +36,9 @@ export default async function ensureAuthentication(
 
     req.user = {
       id: user.id,
+      isAdmin: user.isAdmin,
     };
+
     next();
   } catch {
     throw new AppError('invalid token', 401);
