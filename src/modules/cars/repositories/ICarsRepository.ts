@@ -3,7 +3,7 @@ import Car from '../infra/typeorm/entities/Car';
 
 interface ICarsRepository {
   create(data: ICreateCarDTO): Promise<Car>;
-  findByLicense(data: string): Promise<Car | undefined>;
+  findByLicense(licensePlate: string): Promise<Car | undefined>;
 }
 
 export default ICarsRepository;

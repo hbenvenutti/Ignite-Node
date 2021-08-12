@@ -65,6 +65,5 @@ describe('Create Car', () => {
     });
 
     expect(car.available).toBe(true);
-    
   });
 });
