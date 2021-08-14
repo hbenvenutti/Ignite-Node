@@ -52,26 +52,26 @@ class CarsRepositoryInMemory implements ICarsRepository {
       return null;
     });
 
-    // console.log('repository: ', this.cars);
-    // console.log('repository response: ', all);
-
     return all;
 
     /*
-      const cars = this.cars
-      .filter(car => car.available === true)
-    .filter(car => data.brand && car.brand === data.brand)
-    .filter(car => data.categoryId && car.category_id === data.categoryId)
-    .filter(car => data.name && car.name === data.name);
+        const cars = this.cars
+        .filter(car => car.available === true)
+        .filter(car => data.brand && car.brand === data.brand)
+        .filter(car => data.categoryId && car.category_id === data.categoryId)
+        .filter(car => data.name && car.name === data.name);
 
-    console.log('repository: ', cars);
-    return cars;
-    */
+        console.log('repository: ', cars);
+        return cars;
+        */
+  }
+
+  async findById(id: string): Promise<Car | undefined> {
+    return this.cars.find(car => car.id === id);
   }
 
   async findByLicense(licensePlate: string): Promise<Car | undefined> {
-    const car = this.cars.find(car => car.license_plate === licensePlate);
-    return car;
+    return this.cars.find(car => car.license_plate === licensePlate);
   }
 }
 
