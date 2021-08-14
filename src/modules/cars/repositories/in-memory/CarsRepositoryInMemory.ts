@@ -6,15 +6,17 @@ import ICarsRepository from '../ICarsRepository';
 class CarsRepositoryInMemory implements ICarsRepository {
   cars: Car[] = [];
 
-  async create({
-    name,
-    description,
-    category_id,
-    license_plate,
-    brand,
-    daily_rate,
-    fine_amount,
-  }: ICreateCarDTO): Promise<Car> {
+  async create(data: ICreateCarDTO): Promise<Car> {
+    const {
+      name,
+      description,
+      category_id,
+      license_plate,
+      brand,
+      daily_rate,
+      fine_amount,
+    } = data;
+
     const car = new Car();
 
     Object.assign(car, {
@@ -30,6 +32,41 @@ class CarsRepositoryInMemory implements ICarsRepository {
     this.cars.push(car);
 
     return car;
+  }
+
+  async findAvailable(
+    brand: string,
+    categoryId: string,
+    name: string,
+  ): Promise<Car[]> {
+    const all = this.cars.filter(car => {
+      if (
+        car.available === true ||
+        (brand && car.brand === brand) ||
+        (categoryId && car.category_id === categoryId) ||
+        (name && car.name === name)
+      ) {
+        return car;
+      }
+
+      return null;
+    });
+
+    // console.log('repository: ', this.cars);
+    // console.log('repository response: ', all);
+
+    return all;
+
+    /*
+      const cars = this.cars
+      .filter(car => car.available === true)
+    .filter(car => data.brand && car.brand === data.brand)
+    .filter(car => data.categoryId && car.category_id === data.categoryId)
+    .filter(car => data.name && car.name === data.name);
+
+    console.log('repository: ', cars);
+    return cars;
+    */
   }
 
   async findByLicense(licensePlate: string): Promise<Car | undefined> {
