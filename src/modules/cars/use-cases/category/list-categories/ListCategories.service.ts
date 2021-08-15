@@ -4,10 +4,10 @@ import Category from '@modules/cars/infra/typeorm/entities/Category';
 import ICategoriesRepository from '@modules/cars/repositories/ICategoriesRepository';
 
 @injectable()
-export default class ListCategoriesService {
+export default class ListCategories {
   constructor(
     @inject('CategoriesRepository')
-    private categoriesRepository: ICategoriesRepository,
+    private categoriesRepository: ICategoriesRepository
   ) {}
 
   async execute(): Promise<Category[]> {

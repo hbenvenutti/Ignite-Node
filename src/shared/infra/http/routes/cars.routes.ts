@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import CreateCarSpecificationController from '@modules/cars/use-cases/create-car-specification/CreateCarSpecification.controller';
-import CreateCarController from '@modules/cars/use-cases/create-car/CreateCarController';
-import ListCarsController from '@modules/cars/use-cases/list-cars/listCars.controller';
+import CreateCarController from '@modules/cars/use-cases/car/create-car/CreateCar.controller';
+import ListCarsController from '@modules/cars/use-cases/car/list-cars/listCars.controller';
+import CreateCarSpecificationController from '@modules/cars/use-cases/specification/create-car-specification/CreateCarSpecification.controller';
 import ensureAdmin from '@shared/infra/http/middlewares/ensureAdmin';
 import ensureAuthentication from '@shared/infra/http/middlewares/ensureAuthentication';
 
