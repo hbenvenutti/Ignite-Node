@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import AuthenticateUserService from './AuthenticateUserService';
+import AuthenticateUser from './AuthenticateUser.service';
 
 class AuthenticateUserController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
 
-    const authenticateUserService = container.resolve(AuthenticateUserService);
+    const authenticateUser = container.resolve(AuthenticateUser);
 
-    const authenticationInfo = await authenticateUserService.execute({
+    const authenticationInfo = await authenticateUser.execute({
       email,
-      password,
+      password
     });
 
     return res.json(authenticationInfo);

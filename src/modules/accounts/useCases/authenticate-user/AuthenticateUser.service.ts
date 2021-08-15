@@ -19,10 +19,10 @@ interface IResponse {
 }
 
 @injectable()
-class AuthenticateUserService {
+class AuthenticateUser {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+    private usersRepository: IUsersRepository
   ) {}
   async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
@@ -39,16 +39,16 @@ class AuthenticateUserService {
 
     const token = sign({}, 'minhasenha', {
       subject: user.id,
-      expiresIn: '1d',
+      expiresIn: '1d'
     });
 
     const tokenResponse = {
       user: { name: user.name, email },
-      token,
+      token
     };
 
     return tokenResponse;
   }
 }
 
-export default AuthenticateUserService;
+export default AuthenticateUser;

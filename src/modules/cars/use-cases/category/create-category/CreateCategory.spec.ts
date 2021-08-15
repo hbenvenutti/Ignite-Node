@@ -1,32 +1,30 @@
 import CategoriesRepositoryInMemory from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory';
 import AppError from '@shared/errors/AppError';
 
-import CreateCategoryService from './CreateCategoryService';
+import CreateCategory from './CreateCategory.service';
 
-let createCategoryService: CreateCategoryService;
+let createCategoryService: CreateCategory;
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
 
 describe('Create Category', () => {
   beforeEach(() => {
     categoriesRepositoryInMemory = new CategoriesRepositoryInMemory();
-    createCategoryService = new CreateCategoryService(
-      categoriesRepositoryInMemory,
-    );
+    createCategoryService = new CreateCategory(categoriesRepositoryInMemory);
   });
 
   it('should create a new category', async () => {
     const category = {
       name: 'Test Category 2',
-      description: 'Test Category Description',
+      description: 'Test Category Description'
     };
 
     await createCategoryService.execute({
       name: category.name,
-      description: category.description,
+      description: category.description
     });
 
     const response = await categoriesRepositoryInMemory.findByName(
-      category.name,
+      category.name
     );
 
     expect(response).toHaveProperty('id');
@@ -36,17 +34,17 @@ describe('Create Category', () => {
     expect(async () => {
       const category = {
         name: 'Test Category',
-        description: 'Test Category Description',
+        description: 'Test Category Description'
       };
 
       await createCategoryService.execute({
         name: category.name,
-        description: category.description,
+        description: category.description
       });
 
       await createCategoryService.execute({
         name: category.name,
-        description: category.description,
+        description: category.description
       });
     }).rejects.toBeInstanceOf(AppError);
   });

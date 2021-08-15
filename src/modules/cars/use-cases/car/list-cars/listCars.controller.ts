@@ -11,7 +11,7 @@ class ListCarsController {
     const cars = await listCars.execute({
       brand: brand as string,
       categoryId: categoryId as string,
-      name: name as string,
+      name: name as string
     });
 
     return response.status(201).json(cars);

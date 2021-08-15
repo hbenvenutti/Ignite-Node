@@ -13,13 +13,13 @@ describe('List Cars', () => {
 
   it('should list all cars', async () => {
     const car = await carsRepository.create({
-      name: 'Teste T1',
-      description: 'Teste T1',
+      name: 'Test T1',
+      description: 'Test T1',
       daily_rate: 10,
       license_plate: 'TEST-0101',
       fine_amount: 10,
-      brand: 'Teste',
-      category_id: 'cat id',
+      brand: 'Test',
+      category_id: 'cat id'
     });
 
     const cars = await listCars.execute({});
@@ -28,15 +28,15 @@ describe('List Cars', () => {
   });
 
   it('should list all cars by name', async () => {
-    const name = 'Teste T1';
+    const name = 'Test T1';
     const car = await carsRepository.create({
       name,
-      description: 'Teste T1',
+      description: 'Test T1',
       daily_rate: 10,
       license_plate: 'TEST-0101',
       fine_amount: 10,
-      brand: 'Teste',
-      category_id: 'cat id',
+      brand: 'Test',
+      category_id: 'cat id'
     });
 
     const cars = await listCars.execute({ name });
@@ -45,15 +45,15 @@ describe('List Cars', () => {
   });
 
   it('should list all cars by brand', async () => {
-    const brand = 'Teste';
+    const brand = 'Test';
     const car = await carsRepository.create({
-      name: 'Teste T1',
-      description: 'Teste T1',
+      name: 'Test T1',
+      description: 'Test T1',
       daily_rate: 10,
       license_plate: 'TEST-0101',
       fine_amount: 10,
       brand,
-      category_id: 'cat id',
+      category_id: 'cat id'
     });
 
     const cars = await listCars.execute({ brand });
@@ -64,13 +64,13 @@ describe('List Cars', () => {
   it('should list all cars by category', async () => {
     const categoryId = 'Category 1';
     const car = await carsRepository.create({
-      name: 'Teste T1',
-      description: 'Teste T1',
+      name: 'Test T1',
+      description: 'Test T1',
       daily_rate: 10,
       license_plate: 'TEST-0101',
       fine_amount: 10,
-      brand: 'Teste',
-      category_id: categoryId,
+      brand: 'Test',
+      category_id: categoryId
     });
 
     const cars = await listCars.execute({ categoryId });

@@ -10,10 +10,10 @@ interface IRequestDTO {
 }
 
 @injectable()
-export default class UpdateUserAvatarService {
+export default class UpdateUserAvatar {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+    private usersRepository: IUsersRepository
   ) {}
   async execute({ user_id, avatarFile }: IRequestDTO): Promise<void> {
     const user = (await this.usersRepository.findById(user_id)) as User;

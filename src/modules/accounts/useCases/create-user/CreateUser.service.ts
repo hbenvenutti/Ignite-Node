@@ -6,17 +6,17 @@ import IUsersRepository from '@modules/accounts/repositories/IUsersRepository';
 import AppError from '@shared/errors/AppError';
 
 @injectable()
-export default class CreateUserService {
+export default class CreateUser {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+    private usersRepository: IUsersRepository
   ) {}
 
   async execute({
     name,
     email,
     password,
-    driver_license,
+    driver_license
   }: ICreateUserDTO): Promise<void> {
     const passwordHash = await hash(password, 8);
 
@@ -30,7 +30,7 @@ export default class CreateUserService {
       name,
       email,
       password: passwordHash,
-      driver_license,
+      driver_license
     });
   }
 }

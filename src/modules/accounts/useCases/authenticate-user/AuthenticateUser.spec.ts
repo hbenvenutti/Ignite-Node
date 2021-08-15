@@ -1,18 +1,18 @@
 import UsersRepositoryInMemory from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import AppError from '@shared/errors/AppError';
 
-import CreateUserService from '../createUser/CreateUserService';
-import AuthenticateUserService from './AuthenticateUserService';
+import CreateUser from '../create-user/CreateUser.service';
+import AuthenticateUser from './AuthenticateUser.service';
 
 describe('Authenticate User', () => {
   let usersRepository: UsersRepositoryInMemory;
-  let createUser: CreateUserService;
-  let authenticateUser: AuthenticateUserService;
+  let createUser: CreateUser;
+  let authenticateUser: AuthenticateUser;
 
   beforeEach(() => {
     usersRepository = new UsersRepositoryInMemory();
-    createUser = new CreateUserService(usersRepository);
-    authenticateUser = new AuthenticateUserService(usersRepository);
+    createUser = new CreateUser(usersRepository);
+    authenticateUser = new AuthenticateUser(usersRepository);
   });
 
   it('should authenticate user', async () => {
@@ -24,7 +24,7 @@ describe('Authenticate User', () => {
       password,
       driver_license: '123456',
       email,
-      avatar: undefined,
+      avatar: undefined
     });
 
     const response = await authenticateUser.execute({ email, password });
@@ -32,11 +32,11 @@ describe('Authenticate User', () => {
     expect(response).toHaveProperty('token');
   });
 
-  it('should not authenticate user with an unexisting email', () => {
+  it('should not authenticate user with an inexistent email', () => {
     expect(async () => {
       await authenticateUser.execute({
         email: 'foo@example.com',
-        password: '12345',
+        password: '12345'
       });
     }).rejects.toBeInstanceOf(AppError);
   });
@@ -48,7 +48,7 @@ describe('Authenticate User', () => {
       name: 'foo',
       driver_license: '1234',
       email,
-      password: '12345',
+      password: '12345'
     });
 
     expect(async () => {

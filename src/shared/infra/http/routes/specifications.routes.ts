@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import CreateSpecificationController from '@modules/cars/use-cases/createSpecification/CreateSpecificationController';
+import CreateSpecificationController from '@modules/cars/use-cases/specification/create-specification/CreateSpecification.controller';
 
 import ensureAdmin from '../middlewares/ensureAdmin';
 import ensureAuthentication from '../middlewares/ensureAuthentication';
@@ -13,7 +13,7 @@ specificationsRoutes.post(
   '/',
   ensureAuthentication,
   ensureAdmin,
-  createSpecificationController.handle,
+  createSpecificationController.handle
 );
 
 export default specificationsRoutes;
