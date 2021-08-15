@@ -9,7 +9,7 @@ import AppError from '@shared/errors/AppError';
 class CreateCar {
   constructor(
     @inject('CarsRepository')
-    private carsRepository: ICarsRepository,
+    private carsRepository: ICarsRepository
   ) {}
 
   async execute({
@@ -19,7 +19,7 @@ class CreateCar {
     category_id,
     daily_rate,
     fine_amount,
-    license_plate,
+    license_plate
   }: ICreateCarDTO): Promise<Car> {
     const carExists = await this.carsRepository.findByLicense(license_plate);
 
@@ -34,7 +34,7 @@ class CreateCar {
       category_id,
       daily_rate,
       fine_amount,
-      license_plate,
+      license_plate
     });
 
     return car;

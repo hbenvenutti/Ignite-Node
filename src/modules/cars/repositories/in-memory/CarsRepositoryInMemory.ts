@@ -1,4 +1,5 @@
 import ICreateCarDTO from '@modules/cars/dtos/ICreateCarDTO';
+import IUpdateCarDTO from '@modules/cars/dtos/IUpdateCarDTO';
 import Car from '@modules/cars/infra/typeorm/entities/Car';
 
 import ICarsRepository from '../ICarsRepository';
@@ -14,7 +15,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
       license_plate,
       brand,
       daily_rate,
-      fine_amount,
+      fine_amount
     } = data;
 
     const car = new Car();
@@ -26,7 +27,37 @@ class CarsRepositoryInMemory implements ICarsRepository {
       license_plate,
       brand,
       daily_rate,
-      fine_amount,
+      fine_amount
+    });
+
+    this.cars.push(car);
+
+    return car;
+  }
+
+  async update(data: IUpdateCarDTO): Promise<Car> {
+    const {
+      id,
+      name,
+      description,
+      category_id,
+      license_plate,
+      brand,
+      daily_rate,
+      fine_amount
+    } = data;
+
+    const car = new Car();
+
+    Object.assign(car, {
+      id,
+      name,
+      description,
+      category_id,
+      license_plate,
+      brand,
+      daily_rate,
+      fine_amount
     });
 
     this.cars.push(car);
@@ -37,7 +68,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
   async findAvailable(
     brand: string,
     categoryId: string,
-    name: string,
+    name: string
   ): Promise<Car[]> {
     const all = this.cars.filter(car => {
       if (

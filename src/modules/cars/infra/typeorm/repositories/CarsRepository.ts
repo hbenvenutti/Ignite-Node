@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import ICreateCarDTO from '@modules/cars/dtos/ICreateCarDTO';
+import IUpdateCarDTO from '@modules/cars/dtos/IUpdateCarDTO';
 import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
 
 import Car from '../entities/Car';
@@ -20,7 +21,7 @@ class CarsRepository implements ICarsRepository {
       description,
       fine_amount,
       license_plate,
-      name,
+      name
     } = data;
 
     const car = this.repository.create({
@@ -30,7 +31,7 @@ class CarsRepository implements ICarsRepository {
       description,
       fine_amount,
       license_plate,
-      name,
+      name
     });
 
     this.repository.save(car);
@@ -38,10 +39,40 @@ class CarsRepository implements ICarsRepository {
     return car;
   }
 
+  async update(data: IUpdateCarDTO): Promise<Car> {
+    const {
+      id,
+      category_id,
+      specifications,
+      brand,
+      daily_rate,
+      description,
+      fine_amount,
+      license_plate,
+      name
+    } = data;
+
+    const car = this.repository.create({
+      id,
+      category_id,
+      specifications,
+      brand,
+      daily_rate,
+      description,
+      fine_amount,
+      license_plate,
+      name
+    });
+
+    await this.repository.save(car);
+
+    return car;
+  }
+
   async findAvailable(
     brand?: string,
     categoryId?: string,
-    name?: string,
+    name?: string
   ): Promise<Car[]> {
     const carsQuery = this.repository
       .createQueryBuilder('car')
@@ -64,10 +95,12 @@ class CarsRepository implements ICarsRepository {
     return cars;
   }
 
-  async findByLicense(license_plate: string): Promise<Car | undefined> {
-    const car = await this.repository.findOne({ license_plate });
+  async findById(id: string): Promise<Car | undefined> {
+    return this.repository.findOne({ id });
+  }
 
-    return car;
+  async findByLicense(license_plate: string): Promise<Car | undefined> {
+    return this.repository.findOne({ license_plate });
   }
 }
 

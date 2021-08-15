@@ -5,11 +5,16 @@ import CreateCarSpecification from './CreateCarSpecification.service';
 
 class CreateCarSpecificationController {
   async handle(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const { specificationsId } = request.body;
     const createCarSpecification = container.resolve(CreateCarSpecification);
 
-    await createCarSpecification.execute();
+    const car = await createCarSpecification.execute({
+      carId: id,
+      specificationsId
+    });
 
-    return response.status(201).send();
+    return response.status(201).json(car);
   }
 }
 

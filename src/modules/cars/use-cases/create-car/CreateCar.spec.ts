@@ -21,7 +21,7 @@ describe('Create Car', () => {
       license_plate: 'foo123',
       fine_amount: 12,
       category_id: 'id',
-      brand: 'foo motors',
+      brand: 'foo motors'
     });
 
     const car = await carsRepository.findByLicense('foo123');
@@ -37,7 +37,7 @@ describe('Create Car', () => {
       license_plate: 'foo123',
       fine_amount: 12,
       category_id: 'id',
-      brand: 'foo motors',
+      brand: 'foo motors'
     });
 
     expect(async () => {
@@ -48,7 +48,7 @@ describe('Create Car', () => {
         license_plate: 'foo123',
         fine_amount: 12,
         category_id: 'id',
-        brand: 'foo motors',
+        brand: 'foo motors'
       });
     }).rejects.toBeInstanceOf(AppError);
   });
@@ -61,7 +61,7 @@ describe('Create Car', () => {
       license_plate: 'foo123',
       fine_amount: 12,
       category_id: 'id',
-      brand: 'foo motors',
+      brand: 'foo motors'
     });
 
     expect(car.available).toBe(true);

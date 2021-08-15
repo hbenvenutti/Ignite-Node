@@ -6,7 +6,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  PrimaryColumn,
+  PrimaryColumn
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -43,9 +43,9 @@ class Car {
   @JoinTable({
     name: 'cars_specifications',
     joinColumns: [{ name: 'car_id' }],
-    inverseJoinColumns: [{ name: 'specification_id' }],
+    inverseJoinColumns: [{ name: 'specification_id' }]
   })
-  specifications?: Specification[];
+  specifications: Specification[];
 
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id' })
