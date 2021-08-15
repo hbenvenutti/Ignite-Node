@@ -10,10 +10,10 @@ interface IImportedCategory {
 }
 
 @injectable()
-export default class ImportCategoryService {
+export default class ImportCategory {
   constructor(
     @inject('CategoriesRepository')
-    private categoriesRepository: ICategoriesRepository,
+    private categoriesRepository: ICategoriesRepository
   ) {}
 
   loadCategory(file: Express.Multer.File): Promise<IImportedCategory[]> {
