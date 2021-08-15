@@ -15,7 +15,7 @@ export class CreateCars1628002331361 implements MigrationInterface {
           { name: 'fine_amount', type: 'numeric' },
           { name: 'license_plate', type: 'varchar' },
           { name: 'available', type: 'boolean', default: true },
-          { name: 'created_at', type: 'timestamp', default: 'now()' },
+          { name: 'created_at', type: 'timestamp', default: 'now()' }
         ],
         foreignKeys: [
           {
@@ -24,10 +24,10 @@ export class CreateCars1628002331361 implements MigrationInterface {
             referencedColumnNames: ['id'],
             columnNames: ['category_id'],
             onDelete: 'SET NULL',
-            onUpdate: 'SET NULL',
-          },
-        ],
-      }),
+            onUpdate: 'SET NULL'
+          }
+        ]
+      })
     );
   }
 

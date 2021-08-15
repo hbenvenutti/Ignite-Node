@@ -1,32 +1,23 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateSpecificationsCars1628971360558
-  implements MigrationInterface
-{
+export class CreateCarImage1629054837965 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'cars_specifications',
+        name: 'images',
         columns: [
+          { name: 'id', type: 'uuid', isPrimary: true },
           { name: 'car_id', type: 'uuid' },
-          { name: 'specification_id', type: 'uuid' },
+          { name: 'name', type: 'varchar' },
           { name: 'created_at', type: 'timestamp', default: 'now()' }
         ],
         foreignKeys: [
           {
-            name: 'FK_specification_car',
-            referencedTableName: 'specifications',
-            referencedColumnNames: ['id'],
-            columnNames: ['specification_id'],
-            onDelete: 'SET NULL',
-            onUpdate: 'CASCADE'
-          },
-          {
-            name: 'FK_car_specification',
+            name: 'FK_image_car',
             referencedTableName: 'cars',
             referencedColumnNames: ['id'],
             columnNames: ['car_id'],
-            onDelete: 'SET NULL',
+            onDelete: 'CASCADE',
             onUpdate: 'CASCADE'
           }
         ]
@@ -35,6 +26,6 @@ export class CreateSpecificationsCars1628971360558
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('cars_specifications');
+    await queryRunner.dropTable('images');
   }
 }
