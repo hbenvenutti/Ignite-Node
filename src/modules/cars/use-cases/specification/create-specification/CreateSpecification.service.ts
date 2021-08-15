@@ -8,10 +8,10 @@ interface IRequestDTO {
   description: string;
 }
 @injectable()
-class CreateSpecificationService {
+class CreateSpecification {
   constructor(
     @inject('SpecificationsRepository')
-    private specificationsRepository: ISpecificationsRepository,
+    private specificationsRepository: ISpecificationsRepository
   ) {}
 
   execute({ name, description }: IRequestDTO): void {
@@ -26,4 +26,4 @@ class CreateSpecificationService {
   }
 }
 
-export default CreateSpecificationService;
+export default CreateSpecification;
