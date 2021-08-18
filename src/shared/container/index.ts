@@ -4,9 +4,11 @@ import UsersRepository from '@modules/accounts/infra/typeorm/repositories/UsersR
 import IUsersRepository from '@modules/accounts/repositories/IUsersRepository';
 import CarsRepository from '@modules/cars/infra/typeorm/repositories/CarsRepository';
 import CategoriesRepository from '@modules/cars/infra/typeorm/repositories/CategoriesRepository';
+import ImagesRepository from '@modules/cars/infra/typeorm/repositories/ImagesRepository';
 import SpecificationsRepository from '@modules/cars/infra/typeorm/repositories/SpecificationsRepository';
 import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
 import ICategoriesRepository from '@modules/cars/repositories/ICategoriesRepository';
+import IImagesRepository from '@modules/cars/repositories/IImagesRepository';
 import ISpecificationsRepository from '@modules/cars/repositories/ISpecificationsRepository';
 
 // -------------------------------Cars-----------------------------------------//
@@ -15,16 +17,22 @@ container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository);
 // ---------------------------------Categories---------------------------------//
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
-  CategoriesRepository,
+  CategoriesRepository
 );
 
 container.registerSingleton<ISpecificationsRepository>(
   'SpecificationsRepository',
-  SpecificationsRepository,
+  SpecificationsRepository
 );
 
 // ----------------------------------Users------------------------------------//
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
-  UsersRepository,
+  UsersRepository
+);
+
+// ----------------------------Images----------------------------------------//
+container.registerSingleton<IImagesRepository>(
+  'ImagesRepository',
+  ImagesRepository
 );

@@ -1,5 +1,8 @@
 import { Router } from 'express';
+import multer from 'multer';
 
+import uploadConfig from '@config/files/upload';
+import UploadImageController from '@modules/cars/use-cases/car-images/upload-image/UploadImage.controller';
 import CreateCarController from '@modules/cars/use-cases/car/create-car/CreateCar.controller';
 import ListCarsController from '@modules/cars/use-cases/car/list-cars/listCars.controller';
 import CreateCarSpecificationController from '@modules/cars/use-cases/specification/create-car-specification/CreateCarSpecification.controller';
@@ -9,8 +12,11 @@ import ensureAuthentication from '@shared/infra/http/middlewares/ensureAuthentic
 const carRoutes = Router();
 
 const createCarController = new CreateCarController();
-const listCarsController = new ListCarsController();
 const createCarSpecificationController = new CreateCarSpecificationController();
+const listCarsController = new ListCarsController();
+const uploadImageControllers = new UploadImageController();
+
+const upload = multer(uploadConfig.upload('./tmp/cars'));
 
 carRoutes.post(
   '/',
@@ -24,6 +30,14 @@ carRoutes.post(
   ensureAuthentication,
   ensureAdmin,
   createCarSpecificationController.handle
+);
+
+carRoutes.post(
+  ':id/images',
+  ensureAuthentication,
+  ensureAdmin,
+  upload.array('images'),
+  uploadImageControllers.handle
 );
 
 carRoutes.get('/available', listCarsController.handle);
