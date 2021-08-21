@@ -10,11 +10,16 @@ import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
 import ICategoriesRepository from '@modules/cars/repositories/ICategoriesRepository';
 import IImagesRepository from '@modules/cars/repositories/IImagesRepository';
 import ISpecificationsRepository from '@modules/cars/repositories/ISpecificationsRepository';
+import RentalsRepository from '@modules/rental/infra/typeorm/repositories/RentalsRepository';
+import IRentalsRepository from '@modules/rental/repositories/IRentalsRepository';
 
-// -------------------------------Cars-----------------------------------------//
+import IDateProvider from './providers/date-provider/IDate.provider';
+import DayJs from './providers/date-provider/implementations/DayJs.provider';
+
+// * -------------------------- Cars -------------------------------------- * */
 container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository);
 
-// ---------------------------------Categories---------------------------------//
+// * -------------------------- Categories -------------------------------- * */
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
   CategoriesRepository
@@ -25,14 +30,23 @@ container.registerSingleton<ISpecificationsRepository>(
   SpecificationsRepository
 );
 
-// ----------------------------------Users------------------------------------//
+// * -------------------------- Users --------------------------------------- */
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository
 );
 
-// ----------------------------Images----------------------------------------//
+// * -------------------------- Images -------------------------------------- */
 container.registerSingleton<IImagesRepository>(
   'ImagesRepository',
   ImagesRepository
 );
+
+// * -------------------------- Rentals ------------------------------------- */
+container.registerSingleton<IRentalsRepository>(
+  'RentalsRepository',
+  RentalsRepository
+);
+
+// * -------------------------- Providers --------------------------------- * */
+container.registerSingleton<IDateProvider>('DateProvider', DayJs);
