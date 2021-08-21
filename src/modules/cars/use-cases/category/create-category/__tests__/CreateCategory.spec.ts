@@ -1,7 +1,7 @@
 import CategoriesRepositoryInMemory from '@cars:mocks/CategoriesRepositoryInMemory';
 import AppError from '@errors/AppError';
 
-import CreateCategory from './CreateCategory.service';
+import CreateCategory from '../CreateCategory.service';
 
 let createCategoryService: CreateCategory;
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
