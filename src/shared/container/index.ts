@@ -1,5 +1,7 @@
 import { container } from 'tsyringe';
 
+import '@shared/container/providers';
+
 import IUsersRepository from '@accounts:irepos/IUsersRepository';
 import UsersRepository from '@accounts:repos/UsersRepository';
 import ICarsRepository from '@cars:irepos/ICarsRepository';
@@ -10,15 +12,13 @@ import CarsRepository from '@cars:repos/CarsRepository';
 import CategoriesRepository from '@cars:repos/CategoriesRepository';
 import ImagesRepository from '@cars:repos/ImagesRepository';
 import SpecificationsRepository from '@cars:repos/SpecificationsRepository';
-import IDateProvider from '@providers/date-provider/IDate.provider';
-import DayJs from '@providers/date-provider/implementations/DayJs.provider';
 import IRentalsRepository from '@rental:irepos/IRentalsRepository';
 import RentalsRepository from '@rental:repos/RentalsRepository';
 
 // * -------------------------- Cars -------------------------------------- * */
 container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository);
 
-// * -------------------------- Categories -------------------------------- * */
+// *** -------------------------- Categories ---------------------------- *** */
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
   CategoriesRepository
@@ -46,6 +46,3 @@ container.registerSingleton<IRentalsRepository>(
   'RentalsRepository',
   RentalsRepository
 );
-
-// * -------------------------- Providers --------------------------------- * */
-container.registerSingleton<IDateProvider>('DateProvider', DayJs);
