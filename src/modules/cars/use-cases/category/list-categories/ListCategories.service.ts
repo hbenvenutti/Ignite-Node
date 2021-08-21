@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import Category from '@modules/cars/infra/typeorm/entities/Category';
-import ICategoriesRepository from '@modules/cars/repositories/ICategoriesRepository';
+import Category from '@cars:entities/Category';
+import ICategoriesRepository from '@cars:irepos/ICategoriesRepository';
 
 @injectable()
 export default class ListCategories {

@@ -1,4 +1,4 @@
-import Specification from '../infra/typeorm/entities/Specification';
+import Specification from '@cars:entities/Specification';
 
 export default interface IUpdateCarDTO {
   id: string;

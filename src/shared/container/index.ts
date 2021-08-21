@@ -1,20 +1,19 @@
 import { container } from 'tsyringe';
 
-import UsersRepository from '@modules/accounts/infra/typeorm/repositories/UsersRepository';
-import IUsersRepository from '@modules/accounts/repositories/IUsersRepository';
-import CarsRepository from '@modules/cars/infra/typeorm/repositories/CarsRepository';
-import CategoriesRepository from '@modules/cars/infra/typeorm/repositories/CategoriesRepository';
-import ImagesRepository from '@modules/cars/infra/typeorm/repositories/ImagesRepository';
-import SpecificationsRepository from '@modules/cars/infra/typeorm/repositories/SpecificationsRepository';
-import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
-import ICategoriesRepository from '@modules/cars/repositories/ICategoriesRepository';
-import IImagesRepository from '@modules/cars/repositories/IImagesRepository';
-import ISpecificationsRepository from '@modules/cars/repositories/ISpecificationsRepository';
-import RentalsRepository from '@modules/rental/infra/typeorm/repositories/RentalsRepository';
-import IRentalsRepository from '@modules/rental/repositories/IRentalsRepository';
-
-import IDateProvider from './providers/date-provider/IDate.provider';
-import DayJs from './providers/date-provider/implementations/DayJs.provider';
+import IUsersRepository from '@accounts:irepos/IUsersRepository';
+import UsersRepository from '@accounts:repos/UsersRepository';
+import ICarsRepository from '@cars:irepos/ICarsRepository';
+import ICategoriesRepository from '@cars:irepos/ICategoriesRepository';
+import IImagesRepository from '@cars:irepos/IImagesRepository';
+import ISpecificationsRepository from '@cars:irepos/ISpecificationsRepository';
+import CarsRepository from '@cars:repos/CarsRepository';
+import CategoriesRepository from '@cars:repos/CategoriesRepository';
+import ImagesRepository from '@cars:repos/ImagesRepository';
+import SpecificationsRepository from '@cars:repos/SpecificationsRepository';
+import IDateProvider from '@providers/date-provider/IDate.provider';
+import DayJs from '@providers/date-provider/implementations/DayJs.provider';
+import IRentalsRepository from '@rental:irepos/IRentalsRepository';
+import RentalsRepository from '@rental:repos/RentalsRepository';
 
 // * -------------------------- Cars -------------------------------------- * */
 container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository);

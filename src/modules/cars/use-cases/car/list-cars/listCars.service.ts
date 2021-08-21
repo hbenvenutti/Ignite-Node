@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import Car from '@modules/cars/infra/typeorm/entities/Car';
-import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
+import Car from '@cars:entities/Car';
+import ICarsRepository from '@cars:irepos/ICarsRepository';
 
 interface IRequest {
   brand?: string;
@@ -22,8 +22,6 @@ class ListCars {
       categoryId,
       name
     );
-
-    // console.log('service: ', cars);
 
     return cars;
   }

@@ -1,6 +1,6 @@
-import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
-import CarsRepositoryInMemory from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
-import AppError from '@shared/errors/AppError';
+import ICarsRepository from '@cars:irepos/ICarsRepository';
+import CarsRepositoryInMemory from '@cars:mocks/CarsRepositoryInMemory';
+import AppError from '@errors/AppError';
 
 import CreateCar from './CreateCar.service';
 

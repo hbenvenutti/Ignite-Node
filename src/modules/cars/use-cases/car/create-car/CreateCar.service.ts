@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
-import ICreateCarDTO from '@modules/cars/dtos/ICreateCarDTO';
-import Car from '@modules/cars/infra/typeorm/entities/Car';
-import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
-import AppError from '@shared/errors/AppError';
+import ICreateCarDTO from '@cars:dtos/ICreateCarDTO';
+import Car from '@cars:entities/Car';
+import ICarsRepository from '@cars:irepos/ICarsRepository';
+import AppError from '@errors/AppError';
 
 @injectable()
 class CreateCar {

@@ -1,4 +1,4 @@
-import CarsRepositoryInMemory from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
+import CarsRepositoryInMemory from '@cars:mocks/CarsRepositoryInMemory';
 
 import ListCars from './listCars.service';
 

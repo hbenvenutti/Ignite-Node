@@ -1,8 +1,8 @@
-import Car from '@modules/cars/infra/typeorm/entities/Car';
-import Specification from '@modules/cars/infra/typeorm/entities/Specification';
-import CarsRepositoryInMemory from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
-import SpecificationsRepositoryInMemory from '@modules/cars/repositories/in-memory/SpecificationsRepositoryInMemory';
-import AppError from '@shared/errors/AppError';
+import Car from '@cars:entities/Car';
+import Specification from '@cars:entities/Specification';
+import CarsRepositoryInMemory from '@cars:mocks/CarsRepositoryInMemory';
+import SpecificationsRepositoryInMemory from '@cars:mocks/SpecificationsRepositoryInMemory';
+import AppError from '@errors/AppError';
 
 import CreateCarSpecification from './CreateCarSpecification.service';
 

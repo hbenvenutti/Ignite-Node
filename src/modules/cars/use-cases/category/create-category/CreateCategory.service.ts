@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import ICategoriesRepository from '@modules/cars/repositories/ICategoriesRepository';
-import AppError from '@shared/errors/AppError';
+import ICategoriesRepository from '@cars:irepos/ICategoriesRepository';
+import AppError from '@errors/AppError';
 
 interface IRequestDTO {
   name: string;

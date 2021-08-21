@@ -1,10 +1,10 @@
 import { inject, injectable } from 'tsyringe';
 
 // //import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
-import Rental from '@modules/rental/infra/typeorm/entities/Rental';
-import IRentalsRepository from '@modules/rental/repositories/IRentalsRepository';
-import IDateProvider from '@shared/container/providers/date-provider/IDate.provider';
-import AppError from '@shared/errors/AppError';
+import AppError from '@errors/AppError';
+import IDateProvider from '@providers/date-provider/IDate.provider';
+import Rental from '@rental:entities/Rental';
+import IRentalsRepository from '@rental:irepos/IRentalsRepository';
 
 interface IRequest {
   carId: string;

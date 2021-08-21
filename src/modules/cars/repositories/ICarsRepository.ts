@@ -1,6 +1,6 @@
-import ICreateCarDTO from '../dtos/ICreateCarDTO';
-import IUpdateCarDTO from '../dtos/IUpdateCarDTO';
-import Car from '../infra/typeorm/entities/Car';
+import ICreateCarDTO from '@cars:dtos/ICreateCarDTO';
+import IUpdateCarDTO from '@cars:dtos/IUpdateCarDTO';
+import Car from '@cars:entities/Car';
 
 interface ICarsRepository {
   create(data: ICreateCarDTO): Promise<Car>;

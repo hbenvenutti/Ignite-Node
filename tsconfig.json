@@ -11,6 +11,9 @@
       "@errors/*": ["shared/errors/*"],
       "@utils/*": ["utils/*"],
       "@middlewares/*": ["shared/infra/http/middlewares/*"],
+      "@providers/*": ["shared/container/providers/*"],
+      "@shared:typeorm/*": ["shared/infra/typeorm/*"],
+      "@shared:routes/*": ["shared/infra/http/routes/*"],
       "@accounts:cases/*": ["modules/accounts/use-cases/*"],
       "@accounts:entities/*": ["modules/accounts/infra/typeorm/entities/*"],
       "@accounts:dtos/*": ["modules/accounts/dtos/*"],
@@ -28,7 +31,8 @@
       "@rental:dtos/*": ["modules/rental/dtos/*"],
       "@rental:mocks/*": ["modules/rental/repositories/in-memory/*"],
       "@rental:repos/*": ["modules/rental/infra/typeorm/repositories/*"],
-      "@rental:irepos/*": ["modules/rental/repositories/*"]
+      "@rental:irepos/*": ["modules/rental/repositories/*"],
+
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,

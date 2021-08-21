@@ -1,9 +1,5 @@
-import Specification from '../infra/typeorm/entities/Specification';
-
-export interface ICreateSpecificationDTO {
-  name: string;
-  description: string;
-}
+import ICreateSpecificationDTO from '@cars:dtos/ICreateSpecificationDTO';
+import Specification from '@cars:entities/Specification';
 
 export default interface ISpecificationsRepository {
   create({

@@ -1,7 +1,6 @@
-import ICreateRentalDTO from '@modules/rental/dtos/ICreateRental';
-import Rental from '@modules/rental/infra/typeorm/entities/Rental';
-
-import IRentalsRepository from '../IRentalsRepository';
+import ICreateRentalDTO from '@rental:dtos/ICreateRental';
+import Rental from '@rental:entities/Rental';
+import IRentalsRepository from '@rental:irepos/IRentalsRepository';
 
 class RentalsRepositoryInMemory implements IRentalsRepository {
   private rentals: Rental[] = [];

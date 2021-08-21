@@ -1,5 +1,5 @@
-import ICreateRentalDTO from '../dtos/ICreateRental';
-import Rental from '../infra/typeorm/entities/Rental';
+import ICreateRentalDTO from '@rental:dtos/ICreateRental';
+import Rental from '@rental:entities/Rental';
 
 interface IRentalsRepository {
   create(data: ICreateRentalDTO): Promise<Rental>;
@@ -12,4 +12,3 @@ interface IRentalsRepository {
 }
 
 export default IRentalsRepository;
-

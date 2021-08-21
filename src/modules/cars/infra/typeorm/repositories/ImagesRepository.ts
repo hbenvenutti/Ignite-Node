@@ -1,8 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
-import IImagesRepository from '@modules/cars/repositories/IImagesRepository';
-
-import Image from '../entities/Image';
+import Image from '@cars:entities/Image';
+import IImagesRepository from '@cars:irepos/IImagesRepository';
 
 class ImagesRepository implements IImagesRepository {
   private repository: Repository<Image>;

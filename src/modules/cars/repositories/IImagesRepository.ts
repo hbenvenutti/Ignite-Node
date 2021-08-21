@@ -1,4 +1,4 @@
-import Image from '@modules/cars/infra/typeorm/entities/Image';
+import Image from '@cars:entities/Image';
 
 interface IImagesRepository {
   create(carId: string, name: string): Promise<Image>;

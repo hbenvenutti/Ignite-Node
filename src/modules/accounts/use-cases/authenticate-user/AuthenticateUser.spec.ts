@@ -1,8 +1,10 @@
-import UsersRepositoryInMemory from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
-import AppError from '@shared/errors/AppError';
+import UsersRepositoryInMemory from '@accounts:mocks/UsersRepositoryInMemory';
+import AppError from '@errors/AppError';
 
 import CreateUser from '../create-user/CreateUser.service';
 import AuthenticateUser from './AuthenticateUser.service';
+
+/* -------------------------------------------------------------------------- */
 
 describe('Authenticate User', () => {
   let usersRepository: UsersRepositoryInMemory;
