@@ -1,4 +1,6 @@
-import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
+import { inject, injectable } from 'tsyringe';
+
+// //import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
 import Rental from '@modules/rental/infra/typeorm/entities/Rental';
 import IRentalsRepository from '@modules/rental/repositories/IRentalsRepository';
 import IDateProvider from '@shared/container/providers/date-provider/IDate.provider';
@@ -10,10 +12,13 @@ interface IRequest {
   expectedReturnDate: Date;
 }
 
+@injectable()
 class CreateRental {
   constructor(
+    @inject('RentalsRepository')
     private rentalsRepository: IRentalsRepository,
-    private carsRepository: ICarsRepository,
+    // // private carsRepository: ICarsRepository,
+    @inject('DateProvider')
     private dateProvider: IDateProvider
   ) {}
 
@@ -22,11 +27,11 @@ class CreateRental {
     userId,
     expectedReturnDate
   }: IRequest): Promise<Rental> {
-    // * Car Verification --------------------------------------------------- //
-    const car = await this.carsRepository.findById(carId);
+    // *** Car Verification --------------------------------------------- *** /
+    // // const car = await this.carsRepository.findById(carId);
     const carRental = await this.rentalsRepository.findByCar(carId);
 
-    if (!car?.available || carRental) {
+    if (carRental) {
       throw new AppError('Car unavailable');
     }
 

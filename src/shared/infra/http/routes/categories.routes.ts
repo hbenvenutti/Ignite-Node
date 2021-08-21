@@ -8,7 +8,7 @@ import ListCategoriesController from '@modules/cars/use-cases/category/list-cate
 import ensureAdmin from '../middlewares/ensureAdmin';
 import ensureAuthentication from '../middlewares/ensureAuthentication';
 
-// --------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
 const categoriesRoutes = Router();
 
 const upload = multer({ dest: './tmp' });
@@ -17,7 +17,8 @@ const createCategoryController = new CreateCategoryController();
 const importCategoryController = new ImportCategoryController();
 const listCategoriesController = new ListCategoriesController();
 
-// --------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
+categoriesRoutes.get('/', listCategoriesController.handle);
 
 categoriesRoutes.post(
   '/',
@@ -26,8 +27,7 @@ categoriesRoutes.post(
   createCategoryController.handle
 );
 
-categoriesRoutes.get('/', listCategoriesController.handle);
-
+// *** CSV File Import */
 categoriesRoutes.post(
   '/import',
   ensureAuthentication,
@@ -36,4 +36,5 @@ categoriesRoutes.post(
   importCategoryController.handle
 );
 
+/* -------------------------------------------------------------------------- */
 export default categoriesRoutes;

@@ -1,9 +1,18 @@
+import { getRepository, Repository } from 'typeorm';
+
 import ICreateRentalDTO from '@modules/rental/dtos/ICreateRental';
 import IRentalsRepository from '@modules/rental/repositories/IRentalsRepository';
 
 import Rental from '../entities/Rental';
 
 class RentalsRepository implements IRentalsRepository {
+  private repository: Repository<Rental>;
+
+  constructor() {
+    this.repository = getRepository(Rental);
+  }
+
+  /* ----------------------- Methods ---------------------------------------- */
   create(data: ICreateRentalDTO): Promise<Rental> {
     throw new Error('Method not implemented.');
   }
@@ -21,4 +30,5 @@ class RentalsRepository implements IRentalsRepository {
   }
 }
 
+/* -------------------------------------------------------------------------- */
 export default RentalsRepository;

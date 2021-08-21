@@ -1,7 +1,6 @@
-import ICreateUserDTO from '@modules/accounts/dtos/ICreateUserDTO';
-import User from '@modules/accounts/infra/typeorm/entities/user';
-
-import IUsersRepository from '../IUsersRepository';
+import ICreateUserDTO from '@accounts:dtos/ICreateUserDTO';
+import User from '@accounts:entities/user';
+import IUsersRepository from '@accounts:irepos/IUsersRepository';
 
 class UsersRepositoryInMemory implements IUsersRepository {
   users: User[] = [];
@@ -11,7 +10,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     password,
     email,
     driver_license,
-    avatar,
+    avatar
   }: ICreateUserDTO): Promise<void> {
     const user = new User();
 
@@ -20,12 +19,13 @@ class UsersRepositoryInMemory implements IUsersRepository {
       password,
       avatar,
       driver_license,
-      email,
+      email
     });
 
     this.users.push(user);
   }
 
+  /* ---------------------- Methods ----------------------------------------- */
   async findByEmail(email: string): Promise<User | undefined> {
     const user = this.users.find(user => user.email === email);
 
@@ -38,5 +38,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     return user;
   }
 }
+
+/* -------------------------------------------------------------------------- */
 
 export default UsersRepositoryInMemory;

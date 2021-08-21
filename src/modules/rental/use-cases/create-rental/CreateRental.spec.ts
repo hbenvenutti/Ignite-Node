@@ -1,9 +1,9 @@
+import AppError from '@errors/AppError';
 import Car from '@modules/cars/infra/typeorm/entities/Car';
 import CarsRepositoryInMemory from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
 import RentalsRepositoryInMemory from '@modules/rental/repositories/in-memory/RentalsRepositoryInMemory';
 import IDateProvider from '@shared/container/providers/date-provider/IDate.provider';
 import DayJs from '@shared/container/providers/date-provider/implementations/DayJs.provider';
-import AppError from '@shared/errors/AppError';
 
 import CreateRental from './CreateRental.service';
 
@@ -21,7 +21,7 @@ describe('Create Rental', () => {
     carsRepository = new CarsRepositoryInMemory();
     createRental = new CreateRental(
       rentalsRepository,
-      carsRepository,
+      // //carsRepository,
       dateProvider
     );
 
