@@ -17,6 +17,11 @@ class DayJs implements IDateProvider {
     return dayjs(date).utc().local().format();
   }
 
+  now(): Date {
+    return dayjs().toDate();
+  }
+
+  // * Test Methods --------------------------------------------------------- //
   tomorrow(): Date {
     return dayjs().add(1, 'day').toDate();
   }

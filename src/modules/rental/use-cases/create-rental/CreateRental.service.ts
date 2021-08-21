@@ -40,7 +40,9 @@ class CreateRental {
     // * Date Verification -------------------------------------------------- //
     const minimumRentTime = 24;
 
-    const rentTime = this.dateProvider.compare(new Date(), expectedReturnDate);
+    const now = this.dateProvider.now();
+
+    const rentTime = this.dateProvider.compare(now, expectedReturnDate);
 
     if (rentTime < minimumRentTime) {
       throw new AppError('Rental time must be 24h minimum');
