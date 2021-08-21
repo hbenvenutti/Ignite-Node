@@ -31,8 +31,7 @@
       "@rental:entities/*": ["modules/rental/infra/typeorm/entities/*"],
       "@rental:mocks/*": ["modules/rental/repositories/in-memory/*"],
       "@rental:repos/*": ["modules/rental/infra/typeorm/repositories/*"],
-      "@rental:irepos/*": ["modules/rental/repositories/*"],
-
+      "@rental:irepos/*": ["modules/rental/repositories/*"]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,
