@@ -1,6 +1,7 @@
-interface IDate {
-  compare(initialDate: Date, endDate: Date): Promise<number>;
-  convertToUTC(date: Date): Promise<string>;
+interface IDateProvider {
+  compare(initialDate: Date, endDate: Date): number;
+  convertToUTC(date: Date): string;
+  tomorrow(): Date;
 }
 
-export default IDate;
+export default IDateProvider;

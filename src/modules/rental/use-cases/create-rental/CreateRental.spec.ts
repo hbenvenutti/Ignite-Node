@@ -1,25 +1,23 @@
-import dayjs from 'dayjs';
-
 import Car from '@modules/cars/infra/typeorm/entities/Car';
 import CarsRepositoryInMemory from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
 import RentalsRepositoryInMemory from '@modules/rental/repositories/in-memory/RentalsRepositoryInMemory';
+import DayJs from '@shared/container/providers/date-provider/implementations/DayJs.provider';
 import AppError from '@shared/errors/AppError';
 
 import CreateRental from './CreateRental.service';
 
 describe('Create Rental', () => {
-  const tomorrow = dayjs().add(1, 'day').toDate();
-
   let createRental: CreateRental;
   let rentalsRepository: RentalsRepositoryInMemory;
   let carsRepository: CarsRepositoryInMemory;
+  let dayjs: DayJs;
   let car: Car;
   let car2: Car;
 
   beforeEach(async () => {
     rentalsRepository = new RentalsRepositoryInMemory();
     carsRepository = new CarsRepositoryInMemory();
-    createRental = new CreateRental(rentalsRepository, carsRepository);
+    createRental = new CreateRental(rentalsRepository, carsRepository, dayjs);
 
     car = await carsRepository.create({
       name: 'test',
@@ -46,7 +44,7 @@ describe('Create Rental', () => {
     const rental = await createRental.execute({
       carId: car.id,
       userId: '67891',
-      expectedReturnDate: tomorrow
+      expectedReturnDate: dayjs.tomorrow()
     });
 
     expect(rental).toHaveProperty('id');
@@ -58,7 +56,7 @@ describe('Create Rental', () => {
       await createRental.execute({
         carId: car.id,
         userId: '67891',
-        expectedReturnDate: dayjs().toDate()
+        expectedReturnDate: new Date()
       });
     }).rejects.toBeInstanceOf(AppError);
   });
@@ -68,13 +66,13 @@ describe('Create Rental', () => {
       await createRental.execute({
         carId: car.id,
         userId: '67891',
-        expectedReturnDate: tomorrow
+        expectedReturnDate: dayjs.tomorrow()
       });
 
       await createRental.execute({
         carId: car2.id,
         userId: '67891',
-        expectedReturnDate: tomorrow
+        expectedReturnDate: dayjs.tomorrow()
       });
     }).rejects.toBeInstanceOf(AppError);
   });
@@ -84,13 +82,13 @@ describe('Create Rental', () => {
       await createRental.execute({
         carId: car.id,
         userId: '67891',
-        expectedReturnDate: tomorrow
+        expectedReturnDate: dayjs.tomorrow()
       });
 
       await createRental.execute({
         carId: car.id,
         userId: '67892',
-        expectedReturnDate: tomorrow
+        expectedReturnDate: dayjs.tomorrow()
       });
     }).rejects.toBeInstanceOf(AppError);
   });

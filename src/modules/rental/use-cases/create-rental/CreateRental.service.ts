@@ -1,9 +1,7 @@
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-
 import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
 import Rental from '@modules/rental/infra/typeorm/entities/Rental';
 import IRentalsRepository from '@modules/rental/repositories/IRentalsRepository';
+import IDateProvider from '@shared/container/providers/date-provider/IDate.provider';
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {
@@ -15,7 +13,8 @@ interface IRequest {
 class CreateRental {
   constructor(
     private rentalsRepository: IRentalsRepository,
-    private carsRepository: ICarsRepository
+    private carsRepository: ICarsRepository,
+    private dateProvider: IDateProvider
   ) {}
 
   async execute({
@@ -39,11 +38,9 @@ class CreateRental {
     }
 
     // * Date Verification -------------------------------------------------- //
-    dayjs.extend(utc);
     const minimumRentTime = 24;
-    const parsedReturnDate = dayjs(expectedReturnDate).utc().local().format();
-    const now = dayjs().utc().local().format();
-    const rentTime = dayjs(parsedReturnDate).diff(now, 'hours');
+
+    const rentTime = this.dateProvider.compare(new Date(), expectedReturnDate);
 
     if (rentTime < minimumRentTime) {
       throw new AppError('Rental time must be 24h minimum');
