@@ -1,4 +1,5 @@
 import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
+import Rental from '@modules/rental/infra/typeorm/entities/Rental';
 import IRentalsRepository from '@modules/rental/repositories/IRentalsRepository';
 import AppError from '@shared/errors/AppError';
 
@@ -18,7 +19,7 @@ class CreateRental {
     carId,
     userId,
     expectedReturnDate
-  }: IRequest): Promise<void> {
+  }: IRequest): Promise<Rental> {
     const car = await this.carsRepository.findById(carId);
     const carRental = await this.rentalsRepository.findByCar(carId);
 
@@ -31,6 +32,8 @@ class CreateRental {
     if (rental) {
       throw new AppError('User has an active rental');
     }
+
+    return this.rentalsRepository.create({ userId, carId, expectedReturnDate });
   }
 }
 

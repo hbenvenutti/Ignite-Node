@@ -1,6 +1,9 @@
+import ICreateRentalDTO from '../dtos/ICreateRental';
 import Rental from '../infra/typeorm/entities/Rental';
 
 interface IRentalsRepository {
+  create(data: ICreateRentalDTO): Promise<Rental>;
+
   findByUser(userId: string): Promise<Rental | undefined>;
   findAllByUser(userId: string): Promise<Rental[]>;
 
@@ -9,3 +12,4 @@ interface IRentalsRepository {
 }
 
 export default IRentalsRepository;
+
