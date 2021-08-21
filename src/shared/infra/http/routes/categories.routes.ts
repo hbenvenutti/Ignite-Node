@@ -26,7 +26,7 @@ categoriesRoutes.post(
   createCategoryController.handle
 );
 
-// *** CSV File Import */
+// *** -------------------- CSV File Import ----------------------------- *** */
 categoriesRoutes.post(
   '/import',
   ensureAuthentication,
