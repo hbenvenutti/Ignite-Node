@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import Car from '@modules/cars/infra/typeorm/entities/Car';
 import CarsRepositoryInMemory from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
 import RentalsRepositoryInMemory from '@modules/rental/repositories/in-memory/RentalsRepositoryInMemory';
@@ -6,6 +8,8 @@ import AppError from '@shared/errors/AppError';
 import CreateRental from './CreateRental.service';
 
 describe('Create Rental', () => {
+  const tomorrow = dayjs().add(1, 'day').toDate();
+
   let createRental: CreateRental;
   let rentalsRepository: RentalsRepositoryInMemory;
   let carsRepository: CarsRepositoryInMemory;
@@ -16,6 +20,7 @@ describe('Create Rental', () => {
     rentalsRepository = new RentalsRepositoryInMemory();
     carsRepository = new CarsRepositoryInMemory();
     createRental = new CreateRental(rentalsRepository, carsRepository);
+
     car = await carsRepository.create({
       name: 'test',
       brand: 'test',
@@ -41,15 +46,21 @@ describe('Create Rental', () => {
     const rental = await createRental.execute({
       carId: car.id,
       userId: '67891',
-      expectedReturnDate: new Date()
+      expectedReturnDate: tomorrow
     });
 
     expect(rental).toHaveProperty('id');
     expect(rental).toHaveProperty('start_date');
   });
 
-  it('should create a rent with 24h minimum', async () => {
-    const foo = 'bar';
+  it('should not create a rent with return time lower than 24h', async () => {
+    expect(async () => {
+      await createRental.execute({
+        carId: car.id,
+        userId: '67891',
+        expectedReturnDate: dayjs().toDate()
+      });
+    }).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not create a rental when user has an active rent', async () => {
@@ -57,13 +68,13 @@ describe('Create Rental', () => {
       await createRental.execute({
         carId: car.id,
         userId: '67891',
-        expectedReturnDate: new Date()
+        expectedReturnDate: tomorrow
       });
 
       await createRental.execute({
         carId: car2.id,
         userId: '67891',
-        expectedReturnDate: new Date()
+        expectedReturnDate: tomorrow
       });
     }).rejects.toBeInstanceOf(AppError);
   });
@@ -73,13 +84,13 @@ describe('Create Rental', () => {
       await createRental.execute({
         carId: car.id,
         userId: '67891',
-        expectedReturnDate: new Date()
+        expectedReturnDate: tomorrow
       });
 
       await createRental.execute({
         carId: car.id,
         userId: '67892',
-        expectedReturnDate: new Date()
+        expectedReturnDate: tomorrow
       });
     }).rejects.toBeInstanceOf(AppError);
   });
