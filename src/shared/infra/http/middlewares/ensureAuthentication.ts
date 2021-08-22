@@ -24,7 +24,7 @@ export default async function ensureAuthentication(
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub: user_id } = verify(token, 'minhasenha') as IPayload;
+    const { sub: user_id } = verify(token, 'MyPassword') as IPayload;
 
     const usersRepository = new UsersRepository();
 
