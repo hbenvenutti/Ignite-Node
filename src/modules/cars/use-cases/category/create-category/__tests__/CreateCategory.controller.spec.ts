@@ -41,4 +41,22 @@ describe('Create Category Controller', () => {
 
     expect(response.status).toBe(201);
   });
+  it('should not create a duplicate category', async () => {
+    const session = await request(app)
+      .post('/sessions')
+      .send({ email: 'admin@rentx.com', password: 'admin' });
+
+    const { token } = session.body;
+    await request(app)
+      .post('/categories')
+      .send({ name: 'Supertest', description: 'supertest' })
+      .set({ Authorization: `Bearer ${token}` });
+
+    const response = await request(app)
+      .post('/categories')
+      .send({ name: 'Supertest', description: 'supertest' })
+      .set({ Authorization: `Bearer ${token}` });
+
+    expect(response.status).toBe(400);
+  });
 });
