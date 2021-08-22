@@ -103,6 +103,12 @@ class CarsRepositoryInMemory implements ICarsRepository {
   async findByLicense(licensePlate: string): Promise<Car | undefined> {
     return this.cars.find(car => car.license_plate === licensePlate);
   }
+
+  async updateAvailability(id: string, available: boolean): Promise<void> {
+    const index = await this.cars.findIndex(car => car.id === id);
+
+    this.cars[index].available = available;
+  }
 }
 
 export default CarsRepositoryInMemory;

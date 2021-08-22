@@ -21,7 +21,7 @@ describe('Create Rental', () => {
     carsRepository = new CarsRepositoryInMemory();
     createRental = new CreateRental(
       rentalsRepository,
-      // //carsRepository,
+      carsRepository,
       dateProvider
     );
 
