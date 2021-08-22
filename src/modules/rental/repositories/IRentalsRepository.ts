@@ -4,6 +4,8 @@ import Rental from '@rental:entities/Rental';
 interface IRentalsRepository {
   create(data: ICreateRentalDTO): Promise<Rental>;
 
+  findById(id: string): Promise<Rental | undefined>;
+
   findByUser(userId: string): Promise<Rental | undefined>;
   findAllByUser(userId: string): Promise<Rental[]>;
 

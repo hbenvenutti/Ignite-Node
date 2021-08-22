@@ -11,7 +11,7 @@ class RentalsRepository implements IRentalsRepository {
     this.repository = getRepository(Rental);
   }
 
-  // *** ---------------------- Methods --------------------------------- *** */
+  // * ------------------------ Methods --------------------------------- *** */
 
   async create(data: ICreateRentalDTO): Promise<Rental> {
     const { carId, userId, expectedReturnDate } = data;
@@ -28,7 +28,11 @@ class RentalsRepository implements IRentalsRepository {
   }
 
   // *** ---------------------  Find ------------------------------------ *** */
+  async findById(id: string): Promise<Rental | undefined> {
+    return this.repository.findOne({ id });
+  }
 
+  // *** --------------------- By User ---------------------------------- *** */
   async findByUser(user_id: string): Promise<Rental | undefined> {
     return this.repository.findOne({ user_id });
   }
@@ -37,6 +41,7 @@ class RentalsRepository implements IRentalsRepository {
     return this.repository.find({ user_id });
   }
 
+  // *** --------------------- By Car ----------------------------------- *** */
   async findByCar(car_id: string): Promise<Rental | undefined> {
     return this.repository.findOne({ car_id });
   }
