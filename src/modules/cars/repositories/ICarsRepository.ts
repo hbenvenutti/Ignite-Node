@@ -7,6 +7,8 @@ interface ICarsRepository {
 
   update(data: IUpdateCarDTO): Promise<Car>;
 
+  updateAvailability(id: string, available: boolean): Promise<void>;
+
   findById(id: string): Promise<Car | undefined>;
 
   findByLicense(licensePlate: string): Promise<Car | undefined>;

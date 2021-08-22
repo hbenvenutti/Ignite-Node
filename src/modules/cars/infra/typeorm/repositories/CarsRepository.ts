@@ -101,6 +101,16 @@ class CarsRepository implements ICarsRepository {
   async findByLicense(license_plate: string): Promise<Car | undefined> {
     return this.repository.findOne({ license_plate });
   }
+
+  async updateAvailability(id: string, available: boolean): Promise<void> {
+    await this.repository
+      .createQueryBuilder()
+      .update()
+      .set({ available })
+      .where('id = :id')
+      .setParameters({ id })
+      .execute();
+  }
 }
 
 export default CarsRepository;

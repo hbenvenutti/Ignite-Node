@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-// //import ICarsRepository from '@modules/cars/repositories/ICarsRepository';
+import ICarsRepository from '@cars:irepos/ICarsRepository';
 import AppError from '@errors/AppError';
 import IDateProvider from '@providers/date-provider/IDate.provider';
 import Rental from '@rental:entities/Rental';
@@ -17,7 +17,8 @@ class CreateRental {
   constructor(
     @inject('RentalsRepository')
     private rentalsRepository: IRentalsRepository,
-    // // private carsRepository: ICarsRepository,
+    @inject('CarsRepository')
+    private carsRepository: ICarsRepository,
     @inject('DateProvider')
     private dateProvider: IDateProvider
   ) {}
@@ -52,6 +53,8 @@ class CreateRental {
     if (rentTime < minimumRentTime) {
       throw new AppError('Rental time must be 24h minimum');
     }
+
+    await this.carsRepository.updateAvailability(carId, false);
 
     return this.rentalsRepository.create({ userId, carId, expectedReturnDate });
   }
