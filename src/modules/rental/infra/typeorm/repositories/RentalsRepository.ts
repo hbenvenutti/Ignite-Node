@@ -33,12 +33,12 @@ class RentalsRepository implements IRentalsRepository {
 
   // *** ---------------------  Find ------------------------------------ *** */
   async findById(id: string): Promise<Rental | undefined> {
-    return this.repository.findOne({ id });
+    return this.repository.findOne(id);
   }
 
   // *** --------------------- By User ---------------------------------- *** */
   async findByUser(user_id: string): Promise<Rental | undefined> {
-    return this.repository.findOne({ user_id });
+    return this.repository.findOne({ where: { user_id, endDate: null } });
   }
 
   async findAllByUser(user_id: string): Promise<Rental[]> {
@@ -47,7 +47,7 @@ class RentalsRepository implements IRentalsRepository {
 
   // *** --------------------- By Car ----------------------------------- *** */
   async findByCar(car_id: string): Promise<Rental | undefined> {
-    return this.repository.findOne({ car_id });
+    return this.repository.findOne({ where: { car_id, endDate: null } });
   }
 
   async findAllByCar(car_id: string): Promise<Rental[]> {
