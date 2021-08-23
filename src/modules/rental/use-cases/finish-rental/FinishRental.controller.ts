@@ -8,9 +8,9 @@ class FinishRentalController {
     const { id } = request.params;
     const finishRental = container.resolve(FinishRental);
 
-    await finishRental.execute({ id });
+    const rental = await finishRental.execute({ id });
 
-    return response.send();
+    return response.status(200).json(rental);
   }
 }
 
