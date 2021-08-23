@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: RentX Documentation
+  description: This is an API Rent
+  version: 1.0.0
+  contact: johndoe@email.com
+
+paths:
+  /sessions:
+    post:
+      tags:
+        - Session
+      summary: Login
+      description: Authenticate user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/Credentials'
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Session'
+        400:
+          description: Incorrect email or password!
+
+  /categories:
+    get:
+      tags:
+        - Category
+      summary: List Categories
+      description: It lists all categories.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Category'
+    post:
+      tags:
+        - Category
+      summary: Create Category
+      description: It creates a new category.
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/Category'
+      responses:
+        201:
+          description: Created category successfully
+        400:
+          description: Category already exists
+
+
+  /categories/import:
+    post:
+      tags:
+        - Category
+      summary: Upload Category
+      description: Upload category from csv file.
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        201:
+          description: Success
+
+  /specifications:
+    post:
+      tags:
+        - Specification
+      summary: Create Specification
+      description: It creates a new specification.
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/Specification'
+      responses:
+        201:
+          description: Success.
+        400:
+          description: Specification already exists.
+
+definitions:
+  Credentials:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    example:
+      email: johndoe@foobar.com
+      password: secret
+
+  Session:
+    type: object
+    properties:
+      token:
+        type: string
+      user:
+        type: object
+        properties:
+          name:
+            type: string
+          email:
+            type: string
+    example:
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+      user:
+        name: John Doe
+        email: johndoe@foobar.com
+
+
+  Category:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+    example:
+      name: Sedan
+      description: Car with big space.
+
+  Specification:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+    example:
+      name: example
+      description: example
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
