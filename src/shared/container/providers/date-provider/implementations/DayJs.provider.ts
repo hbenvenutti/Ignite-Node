@@ -13,15 +13,23 @@ class DayJs implements IDateProvider {
     return dayjs(endDateUTC).diff(dayjs(initialDateUTC), 'hours');
   }
 
-  convertToUTC(date: Date): string {
-    return dayjs(date).utc().local().format();
+  compareInDays(initialDate: Date, endDate: Date): number {
+    const endDateUTC = this.convertToUTC(endDate);
+    const initialDateUTC = this.convertToUTC(initialDate);
+
+    return dayjs(endDateUTC).diff(dayjs(initialDateUTC), 'days');
   }
 
   now(): Date {
     return dayjs().toDate();
   }
 
-  // * Test Methods --------------------------------------------------------- //
+  // *** ------------------------ DayJs Exclusive ----------------------- *** //
+  private convertToUTC(date: Date): string {
+    return dayjs(date).utc().local().format();
+  }
+
+  // * ------------------------ Test Methods ------------------------------ * //
   tomorrow(): Date {
     return dayjs().add(1, 'day').toDate();
   }

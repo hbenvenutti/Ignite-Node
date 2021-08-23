@@ -3,6 +3,7 @@ import Rental from '@rental:entities/Rental';
 
 interface IRentalsRepository {
   create(data: ICreateRentalDTO): Promise<Rental>;
+  finish(rental: Rental): Promise<void>;
 
   findById(id: string): Promise<Rental | undefined>;
 

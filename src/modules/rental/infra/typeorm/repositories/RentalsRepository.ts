@@ -11,7 +11,7 @@ class RentalsRepository implements IRentalsRepository {
     this.repository = getRepository(Rental);
   }
 
-  // * ------------------------ Methods --------------------------------- *** */
+  // *** ------------------------ Methods ------------------------------- *** */
 
   async create(data: ICreateRentalDTO): Promise<Rental> {
     const { carId, userId, expectedReturnDate } = data;
@@ -25,6 +25,10 @@ class RentalsRepository implements IRentalsRepository {
     await this.repository.save(rental);
 
     return rental;
+  }
+
+  async finish(rental: Rental): Promise<void> {
+    await this.repository.save(rental);
   }
 
   // *** ---------------------  Find ------------------------------------ *** */
