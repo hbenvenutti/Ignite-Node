@@ -16,16 +16,58 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/definitions/Credentials'
+              $ref: "#/definitions/Credentials"
       responses:
         200:
           description: Success!
           content:
             application/json:
               schema:
-                $ref: '#/definitions/Session'
+                $ref: "#/definitions/Session"
         400:
           description: Incorrect email or password!
+
+  /cars:
+    post:
+      tags:
+        - Car
+      summary: Create Car
+      description: It creates a new car.
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/Car"
+      responses:
+        201:
+          description: Success!
+        400:
+          description: Car already exists!
+  /cars/images/{id}:
+    post:
+      tags:
+        - Car
+      summary: Upload Car Images
+      description: It uploads multiple images.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: car id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/definitions/Images"
+      responses:
+        201:
+          description: Success!
 
   /categories:
     get:
@@ -41,7 +83,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/definitions/Category'
+                  $ref: "#/definitions/Category"
     post:
       tags:
         - Category
@@ -53,14 +95,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/definitions/Category'
+              $ref: "#/definitions/Category"
       responses:
         201:
           description: Created category successfully
         400:
           description: Category already exists
-
-
   /categories/import:
     post:
       tags:
@@ -73,11 +113,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
+              $ref: "#/definitions/CSV"
       responses:
         201:
           description: Success
@@ -94,7 +130,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/definitions/Specification'
+              $ref: "#/definitions/Specification"
       responses:
         201:
           description: Success.
@@ -109,10 +145,10 @@ definitions:
         type: string
       password:
         type: string
+        format: password
     example:
       email: johndoe@foobar.com
       password: secret
-
   Session:
     type: object
     properties:
@@ -130,8 +166,32 @@ definitions:
       user:
         name: John Doe
         email: johndoe@foobar.com
-
-
+  Car:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      brand:
+        type: string
+      category_id:
+        type: string
+        format: uuid
+      daily_rate:
+        type: number
+      fine_amount:
+        type: number
+      license_plate:
+        type: string
+    example:
+      name: Corsa
+      description: Melhor que palio.
+      brand: Chevrolet
+      category_id: d1916f02-0448-11ec-9a03-0242ac130003
+      daily_rate: 15.50
+      fine_amount: 30.20
+      license_plate: GRE1983
   Category:
     type: object
     properties:
@@ -142,7 +202,6 @@ definitions:
     example:
       name: Sedan
       description: Car with big space.
-
   Specification:
     type: object
     properties:
@@ -153,6 +212,20 @@ definitions:
     example:
       name: example
       description: example
+  Images:
+    type: object
+    properties:
+      images:
+        type: array
+        items:
+          type: string
+          format: binary
+  CSV:
+    type: object
+    properties:
+      file:
+        type: string
+        format: binary
 
 components:
   securitySchemes:
