@@ -20,6 +20,17 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
     return rental;
   }
 
+  async finish(rental: Rental): Promise<void> {
+    const { id } = rental;
+    const index = this.rentals.findIndex(rental => rental.id === id);
+
+    this.rentals[index] = rental;
+  }
+
+  async findById(id: string): Promise<Rental | undefined> {
+    return this.rentals.find(rental => rental.id === id);
+  }
+
   async findByCar(carId: string): Promise<Rental | undefined> {
     return this.rentals.find(
       rental => rental.car_id === carId && !rental.end_date

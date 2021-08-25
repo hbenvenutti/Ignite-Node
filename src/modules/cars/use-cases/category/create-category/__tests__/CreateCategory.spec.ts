@@ -31,17 +31,17 @@ describe('Create Category', () => {
   });
 
   it('should not create a duplicate category', async () => {
+    const category = {
+      name: 'Test Category',
+      description: 'Test Category Description'
+    };
+
+    await createCategoryService.execute({
+      name: category.name,
+      description: category.description
+    });
+
     expect(async () => {
-      const category = {
-        name: 'Test Category',
-        description: 'Test Category Description'
-      };
-
-      await createCategoryService.execute({
-        name: category.name,
-        description: category.description
-      });
-
       await createCategoryService.execute({
         name: category.name,
         description: category.description
