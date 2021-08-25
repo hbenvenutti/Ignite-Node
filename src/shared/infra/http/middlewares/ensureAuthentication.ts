@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 
 import UsersRepository from '@accounts:repos/UsersRepository';
+import auth from '@config/auth/auth';
 import AppError from '@errors/AppError';
 
 interface IPayload {
@@ -24,7 +25,7 @@ export default async function ensureAuthentication(
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub: user_id } = verify(token, 'MyPassword') as IPayload;
+    const { sub: user_id } = verify(token, auth.secret) as IPayload;
 
     const usersRepository = new UsersRepository();
 

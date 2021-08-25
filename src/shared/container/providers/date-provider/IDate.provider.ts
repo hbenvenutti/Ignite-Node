@@ -3,6 +3,7 @@ interface IDateProvider {
   compareInDays(initialDate: Date, endDate: Date): number;
   now(): Date;
   tomorrow(): Date;
+  addDays(days: number): Date;
   // // convertToUTC(date: Date): string;
 }
 

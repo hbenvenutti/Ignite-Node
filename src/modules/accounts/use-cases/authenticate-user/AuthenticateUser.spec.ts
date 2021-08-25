@@ -1,3 +1,4 @@
+import JWTProvider from '@accounts:container/provider/token-provider/implementations/JWTProvider';
 import RefreshTokensRepositoryInMemory from '@accounts:mocks/RefreshTokensRepositoryInMemory';
 import UsersRepositoryInMemory from '@accounts:mocks/UsersRepositoryInMemory';
 import AppError from '@errors/AppError';
@@ -10,18 +11,23 @@ import AuthenticateUser from './AuthenticateUser.service';
 describe('Authenticate User', () => {
   let usersRepository: UsersRepositoryInMemory;
   let refreshTokensRepository: RefreshTokensRepositoryInMemory;
+  let tokenProvider: JWTProvider;
   let createUser: CreateUser;
   let authenticateUser: AuthenticateUser;
 
   beforeEach(() => {
     usersRepository = new UsersRepositoryInMemory();
     refreshTokensRepository = new RefreshTokensRepositoryInMemory();
+    tokenProvider = new JWTProvider();
     createUser = new CreateUser(usersRepository);
     authenticateUser = new AuthenticateUser(
       usersRepository,
-      refreshTokensRepository
+      refreshTokensRepository,
+      tokenProvider
     );
   });
+
+  // ------------------------------------------------------------------------ //
 
   it('should authenticate user', async () => {
     const email = 'foo@example.com';
@@ -40,6 +46,8 @@ describe('Authenticate User', () => {
     expect(response).toHaveProperty('token');
   });
 
+  // ------------------------------------------------------------------------ //
+
   it('should not authenticate user with an inexistent email', () => {
     expect(async () => {
       await authenticateUser.execute({
@@ -48,6 +56,8 @@ describe('Authenticate User', () => {
       });
     }).rejects.toBeInstanceOf(AppError);
   });
+
+  // ------------------------------------------------------------------------ //
 
   it('should not authenticate user without the right password', async () => {
     const email = 'foo@example.com';

@@ -2,8 +2,10 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
+import ITokenProvider from '@accounts:container/provider/token-provider/ITokenProvider';
 import IRefreshTokensRepository from '@accounts:irepos/IRefreshTokensRepository';
 import IUsersRepository from '@accounts:irepos/IUsersRepository';
+import auth from '@config/auth/auth';
 import AppError from '@errors/AppError';
 
 /* -------------------------------------------------------------------------- */
@@ -27,12 +29,15 @@ class AuthenticateUser {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
     @inject('RefreshTokensRepository')
-    private refreshTokenRepository: IRefreshTokensRepository
+    private refreshTokensRepository: IRefreshTokensRepository,
+    @inject('TokenProvider')
+    private tokenProvider: ITokenProvider
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
     // *** User Validation *** //
     const user = await this.usersRepository.findByEmail(email);
+    const { refreshSecret } = auth;
 
     if (!user) {
       throw new AppError('Incorrect Email or Password');
@@ -46,9 +51,14 @@ class AuthenticateUser {
     }
 
     // *** Token *** //
-    const token = sign({}, 'MyPassword', {
-      subject: user.id,
-      expiresIn: '1d'
+    const token = this.tokenProvider.sign(user.id);
+
+    const refreshToken = this.tokenProvider.signRefresh(user.id, email);
+
+    await this.refreshTokensRepository.create({
+      userId: user.id,
+      token: refreshToken,
+      expireDate: 
     });
 
     const tokenResponse = {

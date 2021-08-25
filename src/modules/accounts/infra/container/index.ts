@@ -1,4 +1,5 @@
 import { container } from 'tsyringe';
+import '@accounts:container/provider';
 
 import IRefreshTokensRepository from '@accounts:irepos/IRefreshTokensRepository';
 import IUsersRepository from '@accounts:irepos/IUsersRepository';
