@@ -1,9 +1,8 @@
 import { container } from 'tsyringe';
 
 import '@shared/container/providers';
+import '@accounts:container/index';
 
-import IUsersRepository from '@accounts:irepos/IUsersRepository';
-import UsersRepository from '@accounts:repos/UsersRepository';
 import ICarsRepository from '@cars:irepos/ICarsRepository';
 import ICategoriesRepository from '@cars:irepos/ICategoriesRepository';
 import IImagesRepository from '@cars:irepos/IImagesRepository';
@@ -18,7 +17,7 @@ import RentalsRepository from '@rental:repos/RentalsRepository';
 // * -------------------------- Cars -------------------------------------- * */
 container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository);
 
-// *** -------------------------- Categories ---------------------------- *** */
+// *** ------------------------ Categories ------------------------------ *** */
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
   CategoriesRepository
@@ -27,12 +26,6 @@ container.registerSingleton<ICategoriesRepository>(
 container.registerSingleton<ISpecificationsRepository>(
   'SpecificationsRepository',
   SpecificationsRepository
-);
-
-// * -------------------------- Users --------------------------------------- */
-container.registerSingleton<IUsersRepository>(
-  'UsersRepository',
-  UsersRepository
 );
 
 // * -------------------------- Images -------------------------------------- */

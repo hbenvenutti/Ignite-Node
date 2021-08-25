@@ -15,6 +15,7 @@
       "@shared:routes/*": ["shared/infra/http/routes/*"],
       "@shared:typeorm/*": ["shared/infra/typeorm/*"],
       "@accounts:cases/*": ["modules/accounts/use-cases/*"],
+      "@accounts:container/*": ["modules/accounts/infra/container/*"],
       "@accounts:dtos/*": ["modules/accounts/dtos/*"],
       "@accounts:entities/*": ["modules/accounts/infra/typeorm/entities/*"],
       "@accounts:mocks/*": ["modules/accounts/repositories/in-memory/*"],

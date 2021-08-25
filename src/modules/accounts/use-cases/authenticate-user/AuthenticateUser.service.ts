@@ -2,6 +2,7 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
+import IRefreshTokensRepository from '@accounts:irepos/IRefreshTokensRepository';
 import IUsersRepository from '@accounts:irepos/IUsersRepository';
 import AppError from '@errors/AppError';
 
@@ -24,7 +25,9 @@ interface IResponse {
 class AuthenticateUser {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+    @inject('RefreshTokensRepository')
+    private refreshTokenRepository: IRefreshTokensRepository
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {

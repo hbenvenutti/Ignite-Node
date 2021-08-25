@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import User from '@accounts:entities/user';
+import User from '@accounts:entities/User';
 import IUsersRepository from '@accounts:irepos/IUsersRepository';
 import deleteFile from '@utils/file';
 

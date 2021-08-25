@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
-import User from '@accounts:entities/user';
+import User from '@accounts:entities/User';
 import Car from '@cars:entities/Car';
 
 @Entity('rentals')

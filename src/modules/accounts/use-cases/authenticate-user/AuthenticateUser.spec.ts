@@ -1,3 +1,4 @@
+import RefreshTokensRepositoryInMemory from '@accounts:mocks/RefreshTokensRepositoryInMemory';
 import UsersRepositoryInMemory from '@accounts:mocks/UsersRepositoryInMemory';
 import AppError from '@errors/AppError';
 
@@ -8,13 +9,18 @@ import AuthenticateUser from './AuthenticateUser.service';
 
 describe('Authenticate User', () => {
   let usersRepository: UsersRepositoryInMemory;
+  let refreshTokensRepository: RefreshTokensRepositoryInMemory;
   let createUser: CreateUser;
   let authenticateUser: AuthenticateUser;
 
   beforeEach(() => {
     usersRepository = new UsersRepositoryInMemory();
+    refreshTokensRepository = new RefreshTokensRepositoryInMemory();
     createUser = new CreateUser(usersRepository);
-    authenticateUser = new AuthenticateUser(usersRepository);
+    authenticateUser = new AuthenticateUser(
+      usersRepository,
+      refreshTokensRepository
+    );
   });
 
   it('should authenticate user', async () => {
