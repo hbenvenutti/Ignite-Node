@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe';
 import ITokenProvider from '@accounts:container/provider/token-provider/ITokenProvider';
 import IRefreshTokensRepository from '@accounts:irepos/IRefreshTokensRepository';
 import IUsersRepository from '@accounts:irepos/IUsersRepository';
+import auth from '@config/auth/auth';
 import AppError from '@errors/AppError';
 import IDateProvider from '@providers/date-provider/IDate.provider';
 
@@ -36,29 +37,29 @@ class AuthenticateUser {
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
-    // *** User Validation *** //
+    // *** --------------- User Validation ------------------------------ *** //
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
       throw new AppError('Incorrect Email or Password');
     }
 
-    // *** Password Validation *** //
+    // *** --------------- Password Validation -------------------------- *** //
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
       throw new AppError('Incorrect Email or Password');
     }
 
-    // *** Token *** //
+    // *** --------------- Token ---------------------------------------- *** //
+    const { daysInNumber } = auth;
     const token = this.tokenProvider.sign(user.id);
-
     const refreshToken = this.tokenProvider.signRefresh(user.id, email);
 
     await this.refreshTokensRepository.create({
       userId: user.id,
       token: refreshToken,
-      expireDate: this.dateProvider.addDays(30)
+      expireDate: this.dateProvider.addDays(daysInNumber)
     });
 
     const tokenResponse = {
