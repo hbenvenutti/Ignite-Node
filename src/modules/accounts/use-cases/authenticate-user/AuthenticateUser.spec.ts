@@ -1,7 +1,10 @@
 import JWTProvider from '@accounts:container/provider/token-provider/implementations/JWTProvider';
+import ITokenProvider from '@accounts:container/provider/token-provider/ITokenProvider';
 import RefreshTokensRepositoryInMemory from '@accounts:mocks/RefreshTokensRepositoryInMemory';
 import UsersRepositoryInMemory from '@accounts:mocks/UsersRepositoryInMemory';
 import AppError from '@errors/AppError';
+import IDateProvider from '@providers/date-provider/IDate.provider';
+import DayJsProvider from '@providers/date-provider/implementations/DayJs.provider';
 
 import CreateUser from '../create-user/CreateUser.service';
 import AuthenticateUser from './AuthenticateUser.service';
@@ -11,19 +14,27 @@ import AuthenticateUser from './AuthenticateUser.service';
 describe('Authenticate User', () => {
   let usersRepository: UsersRepositoryInMemory;
   let refreshTokensRepository: RefreshTokensRepositoryInMemory;
-  let tokenProvider: JWTProvider;
+  let tokenProvider: ITokenProvider;
+  let dateProvider: IDateProvider;
   let createUser: CreateUser;
   let authenticateUser: AuthenticateUser;
 
   beforeEach(() => {
+    // ! ----------- Change provider in this section only ----------------- ! //
+
+    tokenProvider = new JWTProvider();
+    dateProvider = new DayJsProvider();
+
+    // ---------------------------------------------------------------------- //
+
     usersRepository = new UsersRepositoryInMemory();
     refreshTokensRepository = new RefreshTokensRepositoryInMemory();
-    tokenProvider = new JWTProvider();
     createUser = new CreateUser(usersRepository);
     authenticateUser = new AuthenticateUser(
       usersRepository,
       refreshTokensRepository,
-      tokenProvider
+      tokenProvider,
+      dateProvider
     );
   });
 
