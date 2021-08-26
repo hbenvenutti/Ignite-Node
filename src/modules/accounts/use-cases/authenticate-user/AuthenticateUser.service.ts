@@ -59,7 +59,7 @@ class AuthenticateUser {
     await this.refreshTokensRepository.create({
       userId: user.id,
       token: refreshToken,
-      expireDate: this.dateProvider.addDays(daysInNumber)
+      expirationDate: this.dateProvider.addDays(daysInNumber)
     });
 
     const tokenResponse = {

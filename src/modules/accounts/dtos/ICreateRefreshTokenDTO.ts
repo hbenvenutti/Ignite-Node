@@ -1,6 +1,6 @@
 interface ICreateRefreshTokenDTO {
   userId: string;
-  expireDate: Date;
+  expirationDate: Date;
   token: string;
 }
 
