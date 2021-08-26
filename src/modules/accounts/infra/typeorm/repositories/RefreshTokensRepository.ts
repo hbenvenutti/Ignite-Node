@@ -11,10 +11,10 @@ class RefreshTokensRepository implements IRefreshTokensRepository {
     this.repository = getRepository(RefreshToken);
   }
   async create(data: ICreateRefreshTokenDTO): Promise<RefreshToken> {
-    const { userId, expireDate, token } = data;
+    const { userId, expirationDate, token } = data;
     const refreshToken = this.repository.create({
       user_id: userId,
-      expire_date: expireDate,
+      expire_date: expirationDate,
       token
     });
 

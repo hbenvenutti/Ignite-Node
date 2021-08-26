@@ -6,6 +6,16 @@ class RefreshTokensRepositoryInMemory implements IRefreshTokensRepository {
   create(data: ICreateRefreshTokenDTO): Promise<RefreshToken> {
     throw new Error('Method not implemented.');
   }
+
+  delete(id: string): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+  findByUserIdAndToken(
+    userId: string,
+    token: string
+  ): Promise<RefreshToken | undefined> {
+    throw new Error('Method not implemented.');
+  }
 }
 
 export default RefreshTokensRepositoryInMemory;
