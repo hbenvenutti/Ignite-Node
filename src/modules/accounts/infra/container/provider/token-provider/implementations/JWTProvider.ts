@@ -2,13 +2,17 @@ import { sign, verify } from 'jsonwebtoken';
 
 import auth from '@config/auth/auth';
 
+import { VerifyResponse } from '../@types/VerifyResponse';
 import ITokenProvider from '../ITokenProvider';
 
 interface IPayload {
   sub: string;
   iat: number;
   exp: number;
+
+  email: string;
 }
+
 class JWTProvider implements ITokenProvider {
   sign(id: string): string {
     return sign({}, auth.secret, {
@@ -29,10 +33,10 @@ class JWTProvider implements ITokenProvider {
     return userId;
   }
 
-  verifyRefreshToken(token: string): string {
-    const { sub } = verify(token, auth.refreshSecret) as IPayload;
+  verifyRefreshToken(token: string): VerifyResponse {
+    const { sub: id, email } = verify(token, auth.refreshSecret) as IPayload;
 
-    return sub;
+    return { id, email };
   }
 }
 

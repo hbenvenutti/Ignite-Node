@@ -23,8 +23,15 @@ class RefreshTokensRepository implements IRefreshTokensRepository {
     return refreshToken;
   }
 
-  async findByUserId(userId: string): Promise<RefreshToken | undefined> {
-    return this.repository.findOne({ user_id: userId });
+  async delete(id: string): Promise<void> {
+    await this.repository.delete(id);
+  }
+
+  async findByUserIdAndToken(
+    user_id: string,
+    token: string
+  ): Promise<RefreshToken | undefined> {
+    return this.repository.findOne({ user_id, token });
   }
 }
 
