@@ -1,33 +1,36 @@
 import { NextFunction, Request, Response } from 'express';
-import { verify } from 'jsonwebtoken';
 
+import JWTProvider from '@accounts:container/provider/token-provider/implementations/JWTProvider';
+import ITokenProvider from '@accounts:container/provider/token-provider/ITokenProvider';
+import IUsersRepository from '@accounts:irepos/IUsersRepository';
 import UsersRepository from '@accounts:repos/UsersRepository';
-import auth from '@config/auth/auth';
 import AppError from '@errors/AppError';
 
-interface IPayload {
-  sub: string;
-  iat: number;
-  exp: number;
-}
-
-export default async function ensureAuthentication(
-  req: Request,
-  res: Response,
+async function ensureAuthentication(
+  request: Request,
+  _: Response,
   next: NextFunction
 ): Promise<void> {
-  const authHeader = req.headers.authorization;
+  // ! ------------------ On provider change -> JWTProvider --------------- ! //
+  const tokenProvider: ITokenProvider = new JWTProvider();
+
+  const authHeader = request.headers.authorization;
+
+  // *** --------------------- Token Verification ----------------------- *** //
 
   if (!authHeader) {
     throw new AppError('Missing Token', 401);
   }
 
+  // ------------------------------------------------------------------------ //
+
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub: user_id } = verify(token, auth.secret) as IPayload;
+    const user_id = tokenProvider.verifyToken(token);
 
-    const usersRepository = new UsersRepository();
+    // ! ----------- On Repository Change -> UsersRepository -------------- ! //
+    const usersRepository: IUsersRepository = new UsersRepository();
 
     const user = await usersRepository.findById(user_id);
 
@@ -35,7 +38,7 @@ export default async function ensureAuthentication(
       throw new AppError('User does not exist', 401);
     }
 
-    req.user = {
+    request.user = {
       id: user.id,
       isAdmin: user.isAdmin
     };
@@ -45,3 +48,5 @@ export default async function ensureAuthentication(
     throw new AppError('invalid token', 401);
   }
 }
+
+export default ensureAuthentication;

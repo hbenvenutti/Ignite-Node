@@ -18,7 +18,13 @@ class RefreshTokensRepository implements IRefreshTokensRepository {
       token
     });
 
+    await this.repository.save(refreshToken);
+
     return refreshToken;
+  }
+
+  async findByUserId(userId: string): Promise<RefreshToken | undefined> {
+    return this.repository.findOne({ user_id: userId });
   }
 }
 
