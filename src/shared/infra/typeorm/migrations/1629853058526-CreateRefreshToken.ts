@@ -10,7 +10,7 @@ export class CreateRefreshToken1629853058526 implements MigrationInterface {
           { name: 'token', type: 'varchar' },
           { name: 'user_id', type: 'uuid' },
           { name: 'expire_date', type: 'timestamp' },
-          { name: 'created_at', type: 'timestamp' }
+          { name: 'created_at', type: 'timestamp', default: 'now()' }
         ],
         foreignKeys: [
           {

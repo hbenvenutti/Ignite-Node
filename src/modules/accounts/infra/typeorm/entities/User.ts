@@ -25,7 +25,7 @@ export default class User {
   avatar?: string;
 
   @CreateDateColumn()
-  created_at!: Date;
+  created_at: Date;
 
   constructor() {
     this.id = uuidv4();
