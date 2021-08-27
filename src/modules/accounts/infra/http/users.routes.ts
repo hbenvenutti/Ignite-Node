@@ -6,18 +6,18 @@ import UpdateUserAvatarController from '@accounts:cases/update-user-avatar/Updat
 import uploadConfig from '@config/files/upload';
 import ensureAuthentication from '@middlewares/ensureAuthentication';
 
-const usersRouter = Router();
+const usersRoutes = Router();
 const createUserController = new CreateUserController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 
 const uploadAvatar = multer(uploadConfig.upload('./tmp/avatar'));
 
-usersRouter.post('/', createUserController.handle);
-usersRouter.patch(
+usersRoutes.post('/', createUserController.handle);
+usersRoutes.patch(
   '/avatar',
   ensureAuthentication,
   uploadAvatar.single('avatar'),
   updateUserAvatarController.handle
 );
 
-export default usersRouter;
+export default usersRoutes;
