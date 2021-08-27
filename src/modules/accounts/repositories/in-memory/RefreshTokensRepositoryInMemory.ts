@@ -3,18 +3,34 @@ import RefreshToken from '@accounts:entities/RefreshToken';
 import IRefreshTokensRepository from '@accounts:irepos/IRefreshTokensRepository';
 
 class RefreshTokensRepositoryInMemory implements IRefreshTokensRepository {
-  create(data: ICreateRefreshTokenDTO): Promise<RefreshToken> {
-    throw new Error('Method not implemented.');
+  private refreshTokens: RefreshToken[] = [];
+
+  async create(data: ICreateRefreshTokenDTO): Promise<RefreshToken> {
+    const token = new RefreshToken();
+    Object.assign(token, data);
+
+    this.refreshTokens.push(token);
+    return token;
   }
 
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: string): Promise<void> {
+    const index = this.refreshTokens.findIndex(
+      refreshToken => refreshToken.id === id
+    );
+
+    this.refreshTokens.splice(index, 1);
   }
-  findByUserIdAndToken(
+
+  async findByUserIdAndToken(
     userId: string,
     token: string
   ): Promise<RefreshToken | undefined> {
-    throw new Error('Method not implemented.');
+    const refreshToken = this.refreshTokens.find(
+      refreshToken =>
+        refreshToken.user_id === userId && refreshToken.token === token
+    );
+
+    return refreshToken;
   }
 }
 
