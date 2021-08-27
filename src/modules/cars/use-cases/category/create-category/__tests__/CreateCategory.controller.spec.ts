@@ -29,13 +29,13 @@ describe('Create Category Controller', () => {
 
   it('should create a new category', async () => {
     const session = await request(app)
-      .post('/sessions')
+      .post('/accounts/sessions')
       .send({ email: 'admin@rentx.com', password: 'admin' });
 
     const { token } = session.body;
 
     const response = await request(app)
-      .post('/categories')
+      .post('/cars/categories')
       .send({ name: 'Supertest', description: 'supertest' })
       .set({ Authorization: `Bearer ${token}` });
 
@@ -44,17 +44,17 @@ describe('Create Category Controller', () => {
 
   it('should not create a duplicate category', async () => {
     const session = await request(app)
-      .post('/sessions')
+      .post('/accounts/sessions')
       .send({ email: 'admin@rentx.com', password: 'admin' });
 
     const { token } = session.body;
     await request(app)
-      .post('/categories')
+      .post('/cars/categories')
       .send({ name: 'Supertest', description: 'supertest' })
       .set({ Authorization: `Bearer ${token}` });
 
     const response = await request(app)
-      .post('/categories')
+      .post('/cars/categories')
       .send({ name: 'Supertest', description: 'supertest' })
       .set({ Authorization: `Bearer ${token}` });
 

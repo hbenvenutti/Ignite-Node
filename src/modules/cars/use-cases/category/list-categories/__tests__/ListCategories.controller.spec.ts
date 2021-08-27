@@ -21,6 +21,7 @@ describe('List Category Controller', () => {
       `
     );
   });
+
   afterAll(async () => {
     await connection.dropDatabase();
     await connection.close();
@@ -28,17 +29,17 @@ describe('List Category Controller', () => {
 
   it('should list all categories', async () => {
     const session = await request(app)
-      .post('/sessions')
+      .post('/accounts/sessions')
       .send({ email: 'admin@rentx.com', password: 'admin' });
 
     const { token } = session.body;
 
     await request(app)
-      .post('/categories')
+      .post('/cars/categories')
       .send({ name: 'Supertest', description: 'supertest' })
       .set({ Authorization: `Bearer ${token}` });
 
-    const response = await request(app).get('/categories');
+    const response = await request(app).get('/cars/categories');
 
     expect(response.status).toBe(200);
     expect(response.body.length).toBe(1);

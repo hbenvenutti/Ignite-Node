@@ -6,6 +6,6 @@ import usersRoutes from './users.routes';
 const accountsRouter = Router();
 
 accountsRouter.use('/users', usersRoutes);
-accountsRouter.use('sessions', authenticationRoutes);
+accountsRouter.use('/sessions', authenticationRoutes);
 
 export default accountsRouter;
