@@ -1,8 +1,10 @@
 import ICreateUserDTO from '@accounts:dtos/ICreateUserDTO';
 import User from '@accounts:entities/User';
 
+import { Email, Uuid } from '../@types/credentials/credentials';
+
 export default interface IUsersRepository {
   create(data: ICreateUserDTO): Promise<void>;
-  findByEmail(email: string): Promise<User | undefined>;
-  findById(id: string): Promise<User | undefined>;
+  findByEmail(email: Email): Promise<User | undefined>;
+  findById(id: Uuid): Promise<User | undefined>;
 }

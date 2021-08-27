@@ -1,5 +1,7 @@
+import { Uuid } from '../@types/credentials/credentials';
+
 interface ICreateRefreshTokenDTO {
-  userId: string;
+  userId: Uuid;
   expirationDate: Date;
   token: string;
 }

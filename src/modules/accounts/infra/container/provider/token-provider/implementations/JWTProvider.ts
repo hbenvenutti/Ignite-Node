@@ -1,8 +1,8 @@
 import { sign, verify } from 'jsonwebtoken';
+import { VerifyResponse } from 'modules/accounts/@types/credentials/credentials';
 
 import auth from '@config/auth/auth';
 
-import { VerifyResponse } from '../@types/VerifyResponse';
 import ITokenProvider from '../ITokenProvider';
 
 interface IPayload {
