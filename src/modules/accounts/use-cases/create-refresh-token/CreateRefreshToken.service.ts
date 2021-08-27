@@ -7,7 +7,7 @@ import AppError from '@errors/AppError';
 import IDateProvider from '@providers/date-provider/IDate.provider';
 
 @injectable()
-class RefreshToken {
+class CreateRefreshToken {
   constructor(
     @inject('RefreshTokensRepository')
     private refreshTokensRepository: IRefreshTokensRepository,
@@ -43,4 +43,4 @@ class RefreshToken {
   }
 }
 
-export default RefreshToken;
+export default CreateRefreshToken;
