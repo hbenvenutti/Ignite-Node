@@ -13,7 +13,7 @@ class DayJs implements IDateProvider {
   /**
    * Returns future date adding hours.
    * @param  hours  How many hours in the future.
-   * @returns {Date} Date with n hours in future.
+   * @returns Date with n hours in future.
    */
   addHours(hours: number): Date {
     return dayjs().add(hours, 'hours').toDate();

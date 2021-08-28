@@ -30,7 +30,17 @@ class SendPasswordEmail {
 
     const token = uuid();
 
-    const expirationDate = this.dateProvider.addHours(30);
+    const expirationDate = this.dateProvider.addHours(3);
+
+    /*
+      ? Refresh Token was called UserToken in class
+      ? They used the same class to store refresh token and password token
+    */
+    await this.refreshTokensRepository.create({
+      expirationDate,
+      token,
+      userId: user.id
+    });
   }
 }
 
