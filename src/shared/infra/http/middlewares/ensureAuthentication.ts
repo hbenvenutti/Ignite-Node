@@ -29,7 +29,7 @@ async function ensureAuthentication(
   const [, token] = authHeader.split(' ');
 
   try {
-    const userId = tokenProvider.verifyRefreshToken(token);
+    const { id: userId } = tokenProvider.verifyRefreshToken(token);
 
     // ! ------ On Repository Change -> Repository / import ---------- ! //
     const usersRepository: IUsersRepository = new UsersRepository();

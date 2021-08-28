@@ -1,5 +1,10 @@
 import { sign, verify } from 'jsonwebtoken';
-import { VerifyResponse } from 'modules/accounts/@types/credentials/credentials';
+import {
+  Email,
+  Token,
+  UserId,
+  VerifyResponse
+} from 'modules/accounts/@types/credentials/credentials';
 
 import auth from '@config/auth/auth';
 
@@ -10,30 +15,30 @@ interface IPayload {
   iat: number;
   exp: number;
 
-  email: string;
+  email: Email;
 }
 
 class JWTProvider implements ITokenProvider {
-  sign(id: string): string {
+  sign(id: UserId): Token {
     return sign({}, auth.secret, {
       subject: id,
       expiresIn: auth.expiresIn
     });
   }
 
-  signRefresh(id: string, email: string): string {
+  signRefresh(id: UserId, email: Email): Token {
     return sign({ email }, auth.refreshSecret, {
       subject: id,
       expiresIn: auth.expiresRefresh
     });
   }
 
-  verifyToken(token: string): string {
+  verifyToken(token: string): UserId {
     const { sub: userId } = verify(token, auth.secret) as IPayload;
     return userId;
   }
 
-  verifyRefreshToken(token: string): VerifyResponse {
+  verifyRefreshToken(token: Token): VerifyResponse {
     const { sub: id, email } = verify(token, auth.refreshSecret) as IPayload;
 
     return { id, email };

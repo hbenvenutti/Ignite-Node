@@ -1,4 +1,8 @@
 import { compare } from 'bcryptjs';
+import {
+  Login,
+  TokenResponse
+} from 'modules/accounts/@types/credentials/credentials';
 import { inject, injectable } from 'tsyringe';
 
 import ITokenProvider from '@accounts:container/provider/token-provider/ITokenProvider';
@@ -7,20 +11,6 @@ import IUsersRepository from '@accounts:irepos/IUsersRepository';
 import auth from '@config/auth/auth';
 import AppError from '@errors/AppError';
 import IDateProvider from '@providers/date-provider/IDate.provider';
-
-/* -------------------------------------------------------------------------- */
-interface IRequest {
-  email: string;
-  password: string;
-}
-
-interface IResponse {
-  user: {
-    name: string;
-    email: string;
-  };
-  token: string;
-}
 
 /* -------------------------------------------------------------------------- */
 @injectable()
@@ -36,7 +26,7 @@ class AuthenticateUser {
     private dateProvider: IDateProvider
   ) {}
 
-  async execute({ email, password }: IRequest): Promise<IResponse> {
+  async execute({ email, password }: Login): Promise<TokenResponse> {
     // *** --------------- User Validation ------------------------------ *** //
     const user = await this.usersRepository.findByEmail(email);
 

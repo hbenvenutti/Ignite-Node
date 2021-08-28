@@ -1,8 +1,15 @@
+import {
+  Email,
+  Name,
+  Password,
+  UserId
+} from '../@types/credentials/credentials';
+
 export default interface ICreateUserDTO {
-  name: string;
-  password: string;
-  email: string;
+  name: Name;
+  password: Password;
+  email: Email;
   driver_license: string;
-  id?: string;
+  id?: UserId;
   avatar?: string;
 }
