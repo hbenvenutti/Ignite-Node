@@ -1,8 +1,2 @@
-import { container } from 'tsyringe';
-
-import IDateProvider from './date-provider/IDate.provider';
-import DayJs from './date-provider/implementations/DayJs.provider';
-
-// -------------------------------------------------------------------------- //
-
-container.registerSingleton<IDateProvider>('DateProvider', DayJs);
+import '@shared/container/providers/date-provider';
+import '@shared/container/providers/email-provider';

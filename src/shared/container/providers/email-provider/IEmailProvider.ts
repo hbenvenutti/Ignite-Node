@@ -1,5 +1,7 @@
+import { Email } from '@accounts:types/credentials/credentials';
+
 interface IEmailProvider {
-  foo: string;
+  sendMail(to: Email, subject: string, body: string): Promise<void>;
 }
 
 export default IEmailProvider;

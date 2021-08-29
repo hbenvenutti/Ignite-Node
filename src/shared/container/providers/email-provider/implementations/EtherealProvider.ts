@@ -1,0 +1,43 @@
+import nodemailer, { TestAccount, Transporter } from 'nodemailer';
+
+import { Email } from '@accounts:types/credentials/credentials';
+
+import IEmailProvider from '../IEmailProvider';
+
+class EtherealProvider implements IEmailProvider {
+  private account: TestAccount;
+  private client: Transporter;
+
+  constructor() {
+    this.configure();
+  }
+
+  private async configure() {
+    this.account = await nodemailer.createTestAccount();
+
+    this.client = nodemailer.createTransport({
+      host: this.account.smtp.host,
+      port: this.account.smtp.port,
+      secure: this.account.smtp.secure,
+      auth: {
+        user: this.account.user,
+        pass: this.account.pass
+      }
+    });
+  }
+
+  async sendMail(to: Email, subject: string, body: string): Promise<void> {
+    const message = await this.client.sendMail({
+      to,
+      from: 'Rentx <noreplay@rentx.com>',
+      subject,
+      text: body,
+      html: body
+    });
+
+    console.log(`Message sent: ${message.messageId}`);
+    console.log(`Preview URL: ${nodemailer.getTestMessageUrl(message)}`);
+  }
+}
+
+export default EtherealProvider;
