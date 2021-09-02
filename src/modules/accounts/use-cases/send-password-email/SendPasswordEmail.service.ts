@@ -41,6 +41,12 @@ class SendPasswordEmail {
       token,
       userId: user.id
     });
+
+    await this.emailProvider.sendMail(
+      email,
+      'recuperação de senha',
+      `O link para redefinir a senha é: ${token}`
+    );
   }
 }
 
