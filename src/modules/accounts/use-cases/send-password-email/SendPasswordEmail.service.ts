@@ -1,3 +1,4 @@
+import path from 'path';
 import { inject, injectable } from 'tsyringe';
 import { v4 as uuid } from 'uuid';
 
@@ -22,6 +23,15 @@ class SendPasswordEmail {
   ) {}
 
   async execute(email: Email): Promise<void> {
+    const template = path.resolve(
+      __dirname,
+      '..',
+      '..',
+      'views',
+      'email',
+      'passwordRecoveryEmail.hbs'
+    );
+
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
@@ -42,10 +52,16 @@ class SendPasswordEmail {
       userId: user.id
     });
 
+    const vars = {
+      name: user.name,
+      link: `${process.env.PASSWORD_RECOVERY_URL}${token}`
+    };
+
     await this.emailProvider.sendMail(
       email,
-      'recuperação de senha',
-      `O link para redefinir a senha é: ${token}`
+      'Recuperação de senha',
+      vars,
+      template
     );
   }
 }
