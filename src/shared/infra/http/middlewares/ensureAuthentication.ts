@@ -13,14 +13,12 @@ async function ensureAuthentication(
   _: Response,
   next: NextFunction
 ): Promise<void> {
-  // ! ------------------ On provider change -> JWTProvider --------------- ! //
+  // ! ------------------ On provider change -> JWTProvider ----------------------------------- ! //
   const tokenProvider: ITokenProvider = new JWTProvider();
 
   const authHeader = request.headers.authorization;
 
-  // ------------------------------------------------------------------------ //
-
-  // *** --------------------- Token Verification ----------------------- *** //
+  // *** --------------------- Token Verification ------------------------------------------- *** //
 
   if (!authHeader) {
     throw new AppError('Missing Token', 401);
@@ -31,19 +29,15 @@ async function ensureAuthentication(
   try {
     const { id: userId } = tokenProvider.verifyRefreshToken(token);
 
-    // ! ------ On Repository Change -> Repository / import ---------- ! //
+    // ! ------ On Repository Change -> Repository / import ----------------------------------- ! //
     const usersRepository: IUsersRepository = new UsersRepository();
 
-    const refreshTokensRepository: IRefreshTokensRepository =
-      new RefreshTokensRepository();
+    const refreshTokensRepository: IRefreshTokensRepository = new RefreshTokensRepository();
 
-    // ---------------------------------------------------------------------- //
+    // ------------------------------------------------------------------------------------------ //
 
     const user = await usersRepository.findById(userId);
-    const refreshToken = await refreshTokensRepository.findByUserIdAndToken(
-      userId,
-      token
-    );
+    const refreshToken = await refreshTokensRepository.findByUserIdAndToken(userId, token);
 
     if (!refreshToken) {
       throw new AppError('Token not found', 401);

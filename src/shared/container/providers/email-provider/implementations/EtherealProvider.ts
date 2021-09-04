@@ -3,10 +3,7 @@ import handlebars from 'handlebars';
 import nodemailer, { TestAccount, Transporter } from 'nodemailer';
 
 import { Email } from '@accounts:types/credentials/credentials';
-import {
-  EmailBodyTemplate,
-  PasswordRecoveryTemplateVars
-} from '@accounts:types/email/email';
+import { EmailBodyTemplate, PasswordRecoveryTemplateVars } from '@accounts:types/email/email';
 
 import IEmailProvider from '../IEmailProvider';
 
@@ -15,7 +12,7 @@ class EtherealProvider implements IEmailProvider {
   private client: Transporter;
 
   constructor() {
-    this.configure();
+    this.configure().then();
   }
 
   private async configure() {

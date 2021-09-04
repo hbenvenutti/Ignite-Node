@@ -1,8 +1,5 @@
 import { compare } from 'bcryptjs';
-import {
-  Login,
-  TokenResponse
-} from 'modules/accounts/@types/credentials/credentials';
+import { Login, TokenResponse } from 'modules/accounts/@types/credentials/credentials';
 import { inject, injectable } from 'tsyringe';
 
 import ITokenProvider from '@accounts:container/provider/token-provider/ITokenProvider';
@@ -54,7 +51,8 @@ class AuthenticateUser {
 
     const tokenResponse = {
       user: { name: user.name, email },
-      token
+      token,
+      refreshToken
     };
 
     return tokenResponse;

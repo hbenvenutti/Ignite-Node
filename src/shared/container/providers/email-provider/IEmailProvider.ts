@@ -1,8 +1,5 @@
 import { Email } from '@accounts:types/credentials/credentials';
-import {
-  EmailBodyTemplate,
-  PasswordRecoveryTemplateVars
-} from '@accounts:types/email/email';
+import { EmailBodyTemplate, PasswordRecoveryTemplateVars } from '@accounts:types/email/email';
 
 interface IEmailProvider {
   sendMail(

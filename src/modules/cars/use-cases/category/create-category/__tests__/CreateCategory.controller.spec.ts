@@ -32,12 +32,12 @@ describe('Create Category Controller', () => {
       .post('/accounts/sessions')
       .send({ email: 'admin@rentx.com', password: 'admin' });
 
-    const { token } = session.body;
+    const { refreshToken } = session.body;
 
     const response = await request(app)
       .post('/cars/categories')
       .send({ name: 'Supertest', description: 'supertest' })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ Authorization: `Bearer ${refreshToken}` });
 
     expect(response.status).toBe(201);
   });
@@ -47,16 +47,16 @@ describe('Create Category Controller', () => {
       .post('/accounts/sessions')
       .send({ email: 'admin@rentx.com', password: 'admin' });
 
-    const { token } = session.body;
+    const { refreshToken } = session.body;
     await request(app)
       .post('/cars/categories')
       .send({ name: 'Supertest', description: 'supertest' })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ Authorization: `Bearer ${refreshToken}` });
 
     const response = await request(app)
       .post('/cars/categories')
       .send({ name: 'Supertest', description: 'supertest' })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ Authorization: `Bearer ${refreshToken}` });
 
     expect(response.status).toBe(400);
   });
