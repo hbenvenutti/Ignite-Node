@@ -14,21 +14,21 @@ class RefreshTokensRepositoryInMemory implements IRefreshTokensRepository {
   }
 
   async delete(id: string): Promise<void> {
-    const index = this.refreshTokens.findIndex(
-      refreshToken => refreshToken.id === id
-    );
+    const index = this.refreshTokens.findIndex(refreshToken => refreshToken.id === id);
 
     this.refreshTokens.splice(index, 1);
   }
 
-  async findByUserIdAndToken(
-    userId: string,
-    token: string
-  ): Promise<RefreshToken | undefined> {
+  async findByUserIdAndToken(userId: string, token: string): Promise<RefreshToken | undefined> {
     const refreshToken = this.refreshTokens.find(
-      refreshToken =>
-        refreshToken.user_id === userId && refreshToken.token === token
+      refreshToken => refreshToken.user_id === userId && refreshToken.token === token
     );
+
+    return refreshToken;
+  }
+
+  async findByToken(token: string): Promise<RefreshToken | undefined> {
+    const refreshToken = this.refreshTokens.find(refreshToken => refreshToken.token === token);
 
     return refreshToken;
   }

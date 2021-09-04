@@ -5,13 +5,7 @@ import IUsersRepository from '@accounts:irepos/IUsersRepository';
 class UsersRepositoryInMemory implements IUsersRepository {
   users: User[] = [];
 
-  async create({
-    name,
-    password,
-    email,
-    driver_license,
-    avatar
-  }: ICreateUserDTO): Promise<void> {
+  async create({ name, password, email, driver_license, avatar }: ICreateUserDTO): Promise<void> {
     const user = new User();
 
     Object.assign(user, {
@@ -25,7 +19,13 @@ class UsersRepositoryInMemory implements IUsersRepository {
     this.users.push(user);
   }
 
-  /* ---------------------- Methods ----------------------------------------- */
+  async update(user: User): Promise<void> {
+    const index = this.users.findIndex(storedUser => storedUser.id === user.id);
+
+    this.users[index] = user;
+  }
+
+  // ***  ------------------------- Find Methods -------------------------------------------- *** //
   async findByEmail(email: string): Promise<User | undefined> {
     const user = this.users.find(user => user.email === email);
 
@@ -39,6 +39,6 @@ class UsersRepositoryInMemory implements IUsersRepository {
   }
 }
 
-/* -------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------- */
 
 export default UsersRepositoryInMemory;

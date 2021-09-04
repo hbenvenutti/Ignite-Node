@@ -29,9 +29,7 @@ class ResetPassword {
 
     // *** ---------------- Token Expiration ---------------------------- *** //
 
-    const tokenExpired = this.dateProvider.expiredDate(
-      passwordToken.expire_date
-    );
+    const tokenExpired = this.dateProvider.expiredDate(passwordToken.expire_date);
 
     if (tokenExpired) {
       throw new AppError('Expired Token!');

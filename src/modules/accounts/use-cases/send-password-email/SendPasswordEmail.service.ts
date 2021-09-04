@@ -57,12 +57,7 @@ class SendPasswordEmail {
       link: `${process.env.PASSWORD_RECOVERY_URL}${token}`
     };
 
-    await this.emailProvider.sendMail(
-      email,
-      'Recuperação de senha',
-      vars,
-      template
-    );
+    await this.emailProvider.sendMail(email, 'Recuperação de senha', vars, template);
   }
 }
 

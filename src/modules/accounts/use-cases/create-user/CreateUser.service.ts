@@ -12,12 +12,7 @@ export default class CreateUser {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute({
-    name,
-    email,
-    password,
-    driver_license
-  }: ICreateUserDTO): Promise<void> {
+  async execute({ name, email, password, driver_license }: ICreateUserDTO): Promise<void> {
     const passwordHash = await hash(password, 8);
 
     const emailExists = await this.usersRepository.findByEmail(email);

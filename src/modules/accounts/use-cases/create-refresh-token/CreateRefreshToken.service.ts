@@ -20,8 +20,7 @@ class CreateRefreshToken {
   async execute(token: string): Promise<string> {
     const { id: userId, email } = this.tokenProvider.verifyRefreshToken(token);
 
-    const refreshToken =
-      await this.refreshTokensRepository.findByUserIdAndToken(userId, token);
+    const refreshToken = await this.refreshTokensRepository.findByUserIdAndToken(userId, token);
 
     if (!refreshToken) {
       throw new AppError('Token not found!');
