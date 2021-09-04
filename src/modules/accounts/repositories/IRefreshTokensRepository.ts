@@ -7,6 +7,7 @@ interface IRefreshTokensRepository {
   // data: test, test
   create(data: ICreateRefreshTokenDTO): Promise<RefreshToken>;
   delete(id: Uuid): Promise<void>;
+  findByToken(token: Token): Promise<RefreshToken | undefined>;
   findByUserIdAndToken(
     userId: UserId,
     token: Token

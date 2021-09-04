@@ -34,6 +34,10 @@ class DayJs implements IDateProvider {
     return dayjs(endDateUTC).diff(dayjs(initialDateUTC), 'days');
   }
 
+  expiredDate(expirationDate: Date): boolean {
+    return dayjs().isAfter(expirationDate);
+  }
+
   now(): Date {
     return dayjs().toDate();
   }

@@ -27,6 +27,10 @@ class RefreshTokensRepository implements IRefreshTokensRepository {
     await this.repository.delete(id);
   }
 
+  async findByToken(token: string): Promise<RefreshToken | undefined> {
+    return this.repository.findOne({ token });
+  }
+
   async findByUserIdAndToken(
     user_id: string,
     token: string
