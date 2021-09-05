@@ -7,7 +7,7 @@ import { EmailBodyTemplate, PasswordRecoveryTemplateVars } from '@accounts:types
 
 import IEmailProvider from '../IEmailProvider';
 
-class EtherealProvider implements IEmailProvider {
+class EtherealMail implements IEmailProvider {
   private account: TestAccount;
   private client: Transporter;
 
@@ -51,4 +51,4 @@ class EtherealProvider implements IEmailProvider {
   }
 }
 
-export default EtherealProvider;
+export default EtherealMail;

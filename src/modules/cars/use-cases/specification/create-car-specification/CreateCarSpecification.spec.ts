@@ -17,10 +17,7 @@ describe('Create car specification', () => {
   beforeEach(async () => {
     carRepository = new CarsRepositoryInMemory();
     specificationsRepository = new SpecificationsRepositoryInMemory();
-    createCarSpecification = new CreateCarSpecification(
-      carRepository,
-      specificationsRepository
-    );
+    createCarSpecification = new CreateCarSpecification(carRepository, specificationsRepository);
 
     car = await carRepository.create({
       brand: 'brand',
