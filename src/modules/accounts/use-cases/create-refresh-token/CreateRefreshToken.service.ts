@@ -6,6 +6,11 @@ import auth from '@config/auth/auth';
 import AppError from '@errors/AppError';
 import IDateProvider from '@providers/date-provider/IDate.provider';
 
+type TokenResponse = {
+  jwt: string;
+  refreshToken: string;
+};
+
 @injectable()
 class CreateRefreshToken {
   constructor(
@@ -17,7 +22,7 @@ class CreateRefreshToken {
     private dateProvider: IDateProvider
   ) {}
 
-  async execute(token: string): Promise<string> {
+  async execute(token: string): Promise<TokenResponse> {
     const { id: userId, email } = this.tokenProvider.verifyRefreshToken(token);
 
     const refreshToken = await this.refreshTokensRepository.findByUserIdAndToken(userId, token);
@@ -27,6 +32,8 @@ class CreateRefreshToken {
     }
 
     await this.refreshTokensRepository.delete(refreshToken.id);
+
+    const jwt = this.tokenProvider.sign(userId);
 
     const newRefreshToken = this.tokenProvider.signRefresh(userId, email);
 
@@ -38,7 +45,10 @@ class CreateRefreshToken {
       expirationDate
     });
 
-    return newRefreshToken;
+    return {
+      jwt,
+      refreshToken: newRefreshToken
+    };
   }
 }
 
