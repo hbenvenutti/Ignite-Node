@@ -9,6 +9,7 @@ import AppError from '@errors/AppError';
 import router from '@shared/infra/http/routes';
 import createConnection from '@shared/infra/typeorm';
 import '@shared/container';
+import upload from '@config/files/upload';
 
 const swaggerDocument = YAML.load('./src/swagger.yml');
 
@@ -22,6 +23,9 @@ const app = express();
 app.use(express.json());
 
 app.use(router);
+
+app.use('/avatar', express.static(`${upload.tmpDir}/avatar`));
+app.use('/cars/image', express.static(`${upload.tmpDir}/cars/image`));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

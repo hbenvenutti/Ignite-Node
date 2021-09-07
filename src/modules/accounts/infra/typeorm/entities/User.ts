@@ -1,3 +1,4 @@
+import { Expose } from 'class-transformer';
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -29,5 +30,19 @@ export default class User {
 
   constructor() {
     this.id = uuidv4();
+  }
+  // -------------------------------------------------------------------------------------------- //
+  @Expose({ name: 'avatarUrl' })
+  avatarUrl(): string | null {
+    switch (process.env.disk) {
+      case 'local':
+        return `${process.env.DEV_BASE_URL}/avatar/${this.avatar}`;
+
+      case 'S3':
+        return `${process.env.AWS_BUCKET_URL}/avatar/${this.avatar}`;
+
+      default:
+        return null;
+    }
   }
 }
