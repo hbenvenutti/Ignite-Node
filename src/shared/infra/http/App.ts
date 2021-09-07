@@ -5,11 +5,11 @@ import 'express-async-errors';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
+import upload from '@config/files/upload';
 import AppError from '@errors/AppError';
 import router from '@shared/infra/http/routes';
 import createConnection from '@shared/infra/typeorm';
 import '@shared/container';
-import upload from '@config/files/upload';
 
 const swaggerDocument = YAML.load('./src/swagger.yml');
 
